@@ -1,0 +1,17 @@
+ion-content{
+    --background: var(--ion-custom-white);
+}
+.custom-search{
+    --background:#fff;
+}
+.white{
+    color: #fff;
+}
+ion-item{
+    border-bottom: 2px solid #eeeeee;
+}
+.inputss{
+    border: 1px solid var(--ion-custom-success);
+    border-radius: 5px;
+    margin: 15px auto;
+}
