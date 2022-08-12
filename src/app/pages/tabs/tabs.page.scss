@@ -3,6 +3,9 @@ ion-tab-bar .tab-selected{
     background: var(--ion-custom-dark);
     color: #ffff;
 }
+ion-tab-bar{
+    height: 45px;
+}
 ion-tab-button{
     color: var(--ion-color-primary);
     display: flex;
@@ -19,4 +22,5 @@ ion-label{
     font-size: 14px;
     text-transform: uppercase;
     font-family: system-ui;
+    margin: 10px;
 }

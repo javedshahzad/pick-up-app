@@ -9,35 +9,38 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-    <ion-list>
+<ion-content>
       <ion-item lines="none">
-        <ion-searchbar placeholder="Search" mode="ios" class="custom-search"></ion-searchbar>
+        <ion-searchbar placeholder="Search" mode="ios" class="custom-search" showCancelButton="never" showClearButton="never"></ion-searchbar>
       </ion-item>
       <ion-item lines="none">
+       <div class="title">
         <p>AZ5085</p>
+       </div>
         <div class="ion-margin-start">
           <ion-button color="warning" class="custom-style-btn" size="default"><ion-icon class="white" name="chevron-back-outline"></ion-icon></ion-button>
           <ion-button color="success" routerLink="/checkup" class="custom-style-btn" size="default"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
         </div>
       </ion-item>
       <ion-item lines="none">
-        <p>LT4047</p>
+        <div class="title">
+          <p>LT4047</p>
+        </div>
         <div class="ion-margin-start">
           <ion-button color="warning" size="default" class="custom-style-btn"><ion-icon class="white" name="chevron-back-outline"></ion-icon></ion-button>
             <ion-button color="success" routerLink="/checkup" class="custom-style-btn" size="default"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
         </div>
       </ion-item>
       <ion-item lines="none">
-        <p>QN6215</p>
+        <div class="title">
+          <p>QN6215</p>
+        </div>
         <div class="ion-margin-start">
           <ion-button color="light" size="default" class="custom-style-btn"><ion-icon name="chevron-back-outline">JCA</ion-icon></ion-button>
             <ion-button color="success" routerLink="/checkup" class="custom-style-btn" size="default"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
-          <ion-button color="secondary" routerLink="/checkup" size="small"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+          <ion-button color="secondary" routerLink="/checkup" size="small" class="margin"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
           <ion-button color="tertiary" routerLink="/note" size="small"><ion-icon name="create-outline"></ion-icon></ion-button>
           <ion-button color="dark" routerLink="/photo-step1" size="small"><ion-icon name="camera-outline"></ion-icon></ion-button>
         </div>
       </ion-item>
-  
-    </ion-list>
 </ion-content>

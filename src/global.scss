@@ -31,3 +31,10 @@
     height: 31px;
     width: 62px;
 }
+ion-menu-button{
+    color: var(--ion-custom-dark);
+}
+.custom-search ion-icon {
+    right: 10px !important;
+    left: auto !important;
+  }

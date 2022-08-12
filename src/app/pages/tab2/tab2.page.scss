@@ -2,7 +2,8 @@ ion-content{
     --background: var(--ion-custom-white);
 }
 .custom-search{
-    --background:#fff;
+    --background: #fff;
+    height: 30px;
 }
 .white{
     color: #fff;
@@ -10,6 +11,14 @@ ion-content{
 ion-item{
     border-bottom: 2px solid #eeeeee;
 }
-p{
+
+.title{
+    width: 57px;
+}
+.title p{
     font-size: 15px;
+    font-weight: 600;
+}
+.margin{
+    margin-left: 15px;
 }
