@@ -50,6 +50,10 @@ $ npm install -g ionic
 ```
 
 ## Installation of this project
+You can download the source code from the [gitHub repo](https://github.com/javedshahzad/pick-up-app.git) or clone it using.
+```
+    $ git clone https://github.com/javedshahzad/pick-up-app.git
+```
 
 * Extract the zip file you received after purchase
 
