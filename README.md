@@ -2,7 +2,7 @@
 # Pick-up-app - Ionic 6 and angular 14
 
 
-## Using this project
+## Using this project (prerequisites)
 
 #### Node
 
