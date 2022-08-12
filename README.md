@@ -55,13 +55,20 @@ You can download the source code from the [gitHub repo](https://github.com/javed
     $ git clone https://github.com/javedshahzad/pick-up-app.git
 ```
 
-* Extract the zip file you received after purchase
+* Extract the zip file if you download
 
 * Install npm dependecies
 
 ```
 $ npm install
 ```
+## Run app on local server
+
+```
+$ ionic serve
+```
+This will run app in your browser
+
 * Install Resources
 ```
 $ ionic cordova resources
@@ -83,12 +90,7 @@ $ ionic cordova platform add android@latest
 $ ionic cordova platform add ios@latest
 ```
 
-## Run app on local server
 
-```
-$ ionic serve
-```
-This will run app in your browser
 
 ## Run app on device
 
