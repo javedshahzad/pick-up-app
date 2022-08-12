@@ -28,13 +28,22 @@
 
 //css
 .custom-style-btn{
-    height: 31px;
+    height: 34px;
     width: 62px;
 }
 ion-menu-button{
     color: var(--ion-custom-dark);
 }
 .custom-search ion-icon {
-    right: 10px !important;
+    right: 1px !important;
     left: auto !important;
+    margin-right: -11px;
   }
+  .searchbar-input .sc-ion-searchbar-ios{
+    --padding-left: 1px !important;
+  }
+  .searchbar-left-aligned.sc-ion-searchbar-ios-h .searchbar-input.sc-ion-searchbar-ios {
+    padding-left: unset;
+    -webkit-padding-start: 1px;
+    padding-inline-start: 1px !important;
+}

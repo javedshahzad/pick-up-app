@@ -4,6 +4,7 @@ ion-content{
 .custom-search{
     --background: #fff;
     height: 30px;
+    padding-inline-start: 2px !important;
 }
 .white{
     color: #fff;
@@ -13,12 +14,18 @@ ion-item{
 }
 
 .title{
-    width: 57px;
+    width: 60px;
 }
 .title p{
     font-size: 15px;
     font-weight: 600;
 }
 .margin{
-    margin-left: 15px;
+    margin-left: 25px;
+}
+.hhh{
+    height: 34px;
+    ion-icon{
+        font-size: 22px;
+    }
 }

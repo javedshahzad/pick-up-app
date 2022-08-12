@@ -11,6 +11,7 @@ ion-tab-button{
     display: flex;
     flex-direction: row;
     justify-content:space-evenly;
+    
 }
 ion-tab-button:hover {
     color: var(--ion-color-primary);
@@ -23,4 +24,5 @@ ion-label{
     text-transform: uppercase;
     font-family: system-ui;
     margin: 10px;
+    font-weight: 600;
 }
