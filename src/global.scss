@@ -28,8 +28,12 @@
 
 //css
 .custom-style-btn{
-    height: 34px;
-    width: 62px;
+    height: 31px;
+    width: 50%;
+}
+.shadow-none{
+  --box-shadow: none !important;
+  --background-activated: none;
 }
 ion-menu-button{
     color: var(--ion-custom-dark);
@@ -46,4 +50,12 @@ ion-menu-button{
     padding-left: unset;
     -webkit-padding-start: 1px;
     padding-inline-start: 1px !important;
+}
+ion-toolbar{
+  --background: var(--ion-custom-white);
+}
+.logo{
+  height: 30px;
+  width: 30px;
+  margin-left: 10px;
 }

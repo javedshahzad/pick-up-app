@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'pendings',
     loadChildren: () => import('./pages/pendings/pendings.module').then( m => m.PendingsPageModule)
+  },
+  {
+    path: 'damaged-car',
+    loadChildren: () => import('./pages/damaged-car/damaged-car.module').then( m => m.DamagedCarPageModule)
   }
 ];
 

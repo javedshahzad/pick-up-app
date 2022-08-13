@@ -1,5 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <img src="../../../assets/icon/favicon.png" alt="" slot="start" class="logo">
     <ion-title slot="start">
      JCA
     </ion-title>
@@ -10,10 +11,10 @@
 </ion-header>
 
 <ion-content>
-      <ion-item lines="none">
+      <ion-item lines="none" class="border">
         <ion-searchbar placeholder="Search" mode="ios" class="custom-search" showCancelButton="never" showClearButton="never"></ion-searchbar>
       </ion-item>
-      <ion-item lines="none">
+      <!-- <ion-item lines="none">
        <div class="title">
         <p>AZ5085</p>
        </div>
@@ -30,17 +31,68 @@
           <ion-button color="warning" size="default" class="custom-style-btn"><ion-icon class="white" name="chevron-back-outline"></ion-icon></ion-button>
             <ion-button color="success" routerLink="/checkup" class="custom-style-btn" size="default"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
         </div>
-      </ion-item>
-      <ion-item lines="none">
-        <div class="title">
-          <p>QN6215</p>
-        </div>
-        <div class="ion-margin-start">
-          <ion-button color="light" size="default" class="custom-style-btn"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
-            <ion-button color="success" routerLink="/checkup" class="custom-style-btn" size="default"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>
-          <ion-button slot="end" color="secondary" routerLink="/checkup" size="small" class="margin hhh"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
-          <ion-button slot="end" color="tertiary" routerLink="/note" size="small" class="hhh"><ion-icon name="create-outline"></ion-icon></ion-button>
-          <ion-button slot="end" color="dark" routerLink="/photo-step1" size="small" class="hhh"><ion-icon name="camera"></ion-icon></ion-button>
-        </div>
-      </ion-item>
+      </ion-item> -->
+      <ion-grid class="ion-no-padding">
+        <ion-row style="background: #ffff; --background: #ffff;" class="ion-no-padding">
+          <ion-col size="3"  class="ion-no-padding">
+            <div class="title ion-text-center">
+              <p>AZ5085</p>
+            </div>
+          </ion-col>
+          <ion-col size="4" class="ion-no-padding">
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-button  color="light" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+                  <ion-button color="success" routerLink="/checkup" class="shadow-none custom-style-btn ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>        
+              </ion-item>
+          </ion-col>
+          <ion-col size="5"  class="ion-no-padding">
+          <!-- <ion-item lines="none" class="ion-no-padding">
+            <ion-button  color="secondary" routerLink="/checkup" size="small" class="margin hhh"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+            <ion-button  color="tertiary" routerLink="/note" size="small" class="hhh"><ion-icon name="create-outline"></ion-icon></ion-button>
+            <ion-button  color="dark" routerLink="/photo-step1" size="small" class="hhh"><ion-icon name="camera"></ion-icon></ion-button>
+          </ion-item> -->
+          </ion-col>
+        </ion-row>
+        <ion-row style="background: #ffff;" class="ion-no-padding">
+          <ion-col size="3"  class="ion-no-padding">
+            <div class="title ion-text-center">
+              <p>LT4047</p>
+            </div>
+          </ion-col>
+          <ion-col size="4" class="ion-no-padding">
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-button  color="light" class="custom-style-btn ion-no-padding shadow-none"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+                  <ion-button color="success" routerLink="/checkup" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>        
+              </ion-item>
+          </ion-col>
+          <ion-col size="5"  class="ion-no-padding">
+          <!-- <ion-item lines="none" class="ion-no-padding">
+            <ion-button  color="secondary" routerLink="/checkup" size="small" class="margin hhh"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+            <ion-button  color="tertiary" routerLink="/note" size="small" class="hhh"><ion-icon name="create-outline"></ion-icon></ion-button>
+            <ion-button  color="dark" routerLink="/photo-step1" size="small" class="hhh"><ion-icon name="camera"></ion-icon></ion-button>
+          </ion-item> -->
+          </ion-col>
+        </ion-row>
+        <ion-row style="background: #ffff;" class="ion-no-padding">
+          <ion-col size="3"  class="ion-no-padding">
+            <div class="title ion-text-center">
+              <p>QN6215</p>
+            </div>
+          </ion-col>
+          <ion-col size="4" class="ion-no-padding">
+              <ion-item lines="none" class="ion-no-padding">
+                <ion-button  color="light" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon>JCA</ion-button>
+                  <ion-button color="success" routerLink="/checkup" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>        
+              </ion-item>
+          </ion-col>
+          <ion-col size="5"  class="ion-no-padding">
+          <ion-item lines="none" class="ion-no-padding">
+            <ion-button  color="secondary" routerLink="/checkup" size="small" class="margin hhh shadow-none"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+            <ion-button  color="tertiary" routerLink="/note" size="small" class="hhh shadow-none"><ion-icon name="create-outline"></ion-icon></ion-button>
+            <ion-button  color="dark" routerLink="/photo-step1" size="small" class="hhh shadow-none"><ion-icon name="camera"></ion-icon></ion-button>
+          </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 </ion-content>
+

@@ -9,22 +9,24 @@ ion-content{
 .white{
     color: #fff;
 }
-ion-item{
+ion-row{
     border-bottom: 2px solid #eeeeee;
 }
-
+.border{
+    border-bottom: 2px solid #eeeeee;
+}
 .title{
-    width: 60px;
+    width: 100%;
 }
 .title p{
     font-size: 15px;
     font-weight: 600;
 }
 .margin{
-    margin-left: 25px;
+    margin-left: 10px;
 }
 .hhh{
-    height: 34px;
+    height: 31px;
     ion-icon{
         font-size: 22px;
     }

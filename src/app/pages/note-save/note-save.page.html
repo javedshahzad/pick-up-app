@@ -1,5 +1,6 @@
 <ion-header>
   <ion-toolbar>
+    <img src="../../../assets/icon/favicon.png" alt="" slot="start" class="logo">
     <ion-title>Note Save</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
@@ -9,16 +10,16 @@
 
 <ion-content>
 
-  <div class="ion-margin">
+  <div class="ion-padding">
     <div class="ion-padding">
       <ion-button color="success" routerLink="/tabs"><ion-icon class="white" name="chevron-back-outline"></ion-icon>Back</ion-button>
       <ion-button color="danger"><ion-icon name="save-outline"></ion-icon>&nbsp;Save&nbsp;</ion-button>
         
       <textarea class="para" cols="46" rows="10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem aliquid omnis nemo tenetur illo</textarea>
-        <ion-button color="dark" expand="block"><ion-icon name="camera-outline"></ion-icon>Take a picture</ion-button>
-        <img src="../../../assets/images/madison.jpg" alt="">
-        <img src="../../../assets/images/madison.jpg" alt="">
-        <img src="../../../assets/images/ionic-application-banner.jpg" alt="">
+        <ion-button color="dark" expand="block" class="ion-text-capitalize"><ion-icon name="camera"></ion-icon>&nbsp;Take a picture</ion-button>
+        <img src="../../../assets/images/madison.jpg" alt="" class="image">
+        <img src="../../../assets/images/madison.jpg" alt="" class="image">
+        <img src="../../../assets/images/ionic-application-banner.jpg" alt="" class="image">
     </div>
   </div>
 </ion-content>

@@ -7,14 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PhotoStep1PageRoutingModule } from './photo-step1-routing.module';
 
 import { PhotoStep1Page } from './photo-step1.page';
+import { DamagedCarPage } from '../damaged-car/damaged-car.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PhotoStep1PageRoutingModule
+    PhotoStep1PageRoutingModule,
   ],
-  declarations: [PhotoStep1Page]
+  declarations: [PhotoStep1Page,DamagedCarPage]
 })
 export class PhotoStep1PageModule {}

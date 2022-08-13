@@ -11,5 +11,7 @@ export class PhotoStep1Page implements OnInit {
 
   ngOnInit() {
   }
-
+  damagedCar(eve){
+    console.log(eve);
+  }
 }

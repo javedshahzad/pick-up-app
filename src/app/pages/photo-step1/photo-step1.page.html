@@ -1,5 +1,6 @@
 <ion-header>
   <ion-toolbar>
+    <img src="../../../assets/icon/favicon.png" alt="" slot="start" class="logo">
     <ion-title>Photo step 1</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
@@ -23,11 +24,9 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-     <div class="ion-padding">
-      <img src="../../../assets/images/p3.jpg" alt="">
-      <img src="../../../assets/images/p4.jpg" alt="">
-      <img src="../../../assets/images/p3.jpg" alt="">
-     </div>
+     
+      <app-damaged-car (getdataFromDamagedcar)="damagedCar($event)"></app-damaged-car>
+    
    
  </div>
 </ion-content>
