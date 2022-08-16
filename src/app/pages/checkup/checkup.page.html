@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <img src="../../../assets/icon/favicon.png" alt="" slot="start" class="logo">
-    <ion-title>Check-up</ion-title>
+    <ion-title>{{vehicleDetails.vehicle_registration}}</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -19,7 +19,7 @@
         </ion-col>
         <ion-col>
           <div class="ion-text-center">
-            <ion-button color="danger"><ion-icon name="save-outline"></ion-icon>Save</ion-button>
+            <ion-button color="danger" (click)="savecheckup()"><ion-icon name="save-outline"></ion-icon>Save</ion-button>
           </div>
         </ion-col>
       </ion-row>
@@ -30,23 +30,23 @@
   <ion-item lines="none"></ion-item>
   <ion-item lines="none">
     <ion-label>Clean vehcile</ion-label>
-    <ion-toggle mode="ios" checked color="primary"></ion-toggle>
+    <ion-toggle mode="ios" (ionChange)="Cleanvechile($event)" [checked]="checkedstatus.clean_vehicle === 1 ? 'true' : 'false'" color="primary"></ion-toggle>
   </ion-item>
   <ion-item lines="none">
     <ion-label>Vehcile pictures</ion-label>
-    <ion-toggle mode="ios" checked></ion-toggle>
+    <ion-toggle mode="ios" (ionChange)="vehiclePic($event)" [checked]="checkedstatus.vehicle_pictures === 1 ? 'true' : 'false'"></ion-toggle>
   </ion-item>
   <ion-item lines="none">
     <ion-label>Photos of damage</ion-label>
-    <ion-toggle mode="ios" checked></ion-toggle>
+    <ion-toggle mode="ios" (ionChange)="photosDamage($event)" [checked]="checkedstatus.pictures_of_damage === 1 ? 'true' : 'false'"></ion-toggle>
   </ion-item>
   <ion-item lines="none">
     <ion-label>Windsheilds check</ion-label>
-    <ion-toggle mode="ios" checked></ion-toggle>
+    <ion-toggle mode="ios" (ionChange)="windsheilds($event)" [checked]="checkedstatus.windshield_check === 1 ? 'true' : 'false'"></ion-toggle>
   </ion-item>
   <ion-item lines="none">
     <ion-label>Engine light</ion-label>
-    <ion-toggle mode="ios" ></ion-toggle>
+    <ion-toggle mode="ios" (ionChange)="enginelights($event)" [checked]="checkedstatus.engine_light === 1 ? 'true' : 'false'"></ion-toggle>
   </ion-item>
 </ion-list>
  </div>

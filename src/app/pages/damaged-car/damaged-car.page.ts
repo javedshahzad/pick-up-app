@@ -10,6 +10,11 @@ export class DamagedCarPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    let data={
+      "id":"1",
+      "damagedArea":"windshield"
+    };
+    this.getdataFromDamagedcar.emit(data);
   }
   addclass(id,damageArea){
     console.log(id,damageArea);

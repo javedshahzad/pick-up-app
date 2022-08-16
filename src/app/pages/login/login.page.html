@@ -5,16 +5,18 @@
 </ion-header>
 
 <ion-content>
+  <form [formGroup]="loginForm">
     <ion-list class="ion-padding">
       <ion-item lines="none">
         Mobile Number
       </ion-item>
       <ion-item lines="none">
         <br>
-        <ion-input class="inputss ion-padding-start" placeholder="Mobile number"></ion-input>
+        <ion-input class="inputss ion-padding-start" formControlName="phone" placeholder="Mobile number"></ion-input>
         <br>
       </ion-item>
       <br>
-      <ion-button expand="block" color="dark" routerLink="/tabs">Login</ion-button>
+      <ion-button expand="block" color="dark" (click)="login()" [disabled]="!loginForm.valid">Login</ion-button>
     </ion-list>
+  </form>
 </ion-content>

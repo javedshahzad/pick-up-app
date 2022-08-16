@@ -22,4 +22,18 @@ ion-item{
 .image{
     width: 100%;
     margin: 10px auto;
+    height: 190px;
+}
+
+.upload-image{
+    opacity: 0;
+    position: absolute;
+    z-index: 1;
+    top: 23%;
+    left: 10%;
+}
+.file-div{
+    position: relative;
+    height: auto;
+    width: 100%;
 }

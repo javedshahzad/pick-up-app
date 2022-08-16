@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <img src="../../../assets/icon/favicon.png" alt="" slot="start" class="logo">
-    <ion-title>Photo step 1</ion-title>
+    <ion-title>{{vehicleDetails.vehicle_registration}}</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -19,7 +19,7 @@
         </ion-col>
         <ion-col>
           <div class="ion-text-center">
-            <ion-button color="dark" routerLink="/photo-step2">Next&nbsp;<ion-icon name="arrow-forward-outline"></ion-icon>&nbsp;</ion-button>
+            <ion-button color="dark" (click)="photoStep2()">Next&nbsp;<ion-icon name="arrow-forward-outline"></ion-icon>&nbsp;</ion-button>
           </div>
         </ion-col>
       </ion-row>

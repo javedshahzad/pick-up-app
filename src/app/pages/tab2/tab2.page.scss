@@ -27,7 +27,18 @@ ion-row{
 }
 .hhh{
     height: 31px;
+    margin: 0 3px;
     ion-icon{
         font-size: 22px;
     }
+}
+.no-found{
+    height: 50px;
+    width: 90%;
+    display: block;
+    margin: 10px auto;
+    color: var(--ion-cutom-red);
+    background: var(--ion-custom-light-red);
+    border-radius: 5px;
+    padding: 15px;
 }

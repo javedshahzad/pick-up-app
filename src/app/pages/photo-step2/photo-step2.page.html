@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <img src="../../../assets/icon/favicon.png" alt="" slot="start" class="logo">
-    <ion-title>Photo step 2</ion-title>
+    <ion-title>{{vehicleDetails.vehicle_registration}}</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -19,19 +19,22 @@
         </ion-col>
         <ion-col>
           <div class="ion-text-center">
-            <ion-button color="dark">&nbsp;<ion-icon name="camera-outline"></ion-icon>&nbsp;</ion-button>
+            <div class="file-div">
+              <ion-button color="dark">&nbsp;<ion-icon name="camera-outline"></ion-icon>&nbsp;</ion-button>
+              <input type="file" class="upload-image" accept="image/jpg,.jpg" (change)="showPreviewImage($event)">
+            </div>
           </div>
         </ion-col>
         <ion-col>
           <div class="ion-text-center">
-            <ion-button color="danger"><ion-icon name="save-outline"></ion-icon>&nbsp;Save</ion-button>
+            <ion-button color="danger" (click)="save()"><ion-icon name="save-outline"></ion-icon>&nbsp;Save</ion-button>
           </div>
         </ion-col>
       </ion-row>
     </ion-grid>
      <div class="ion-padding ion-text-center" >
-      <h3>Right front rim</h3>
-      <textarea name="" id="" class="para" cols="45" rows="2">There is a scratch on right side of rim on the car</textarea>
+      <h3>{{seletedDamage.damagedArea}}</h3>
+      <textarea name="" id="" class="para" cols="45" rows="2" [(ngModel)]="notes"></textarea>
       <img src="../../../assets/images/p3.jpg" alt="" class="image">
      </div>
    

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <img src="../../../assets/icon/favicon.png" alt="" slot="start" class="logo">
-    <ion-title>Note</ion-title>
+    <ion-title>{{vehicleDetails.vehicle_registration}}</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -12,9 +12,9 @@
     <div class="ion-padding">
       <div class="ion-padding">
         <ion-button color="success" routerLink="/tabs"><ion-icon class="white" name="chevron-back-outline"></ion-icon>Back</ion-button>
-        <ion-button color="dark" routerLink="/note-save"><ion-icon name="pencil-outline"></ion-icon>&nbsp;Edit&nbsp;</ion-button>
-        <div class="para">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem aliquid omnis nemo tenetur illo
+        <ion-button color="dark" (click)="editNote()"><ion-icon name="pencil-outline"></ion-icon>&nbsp;Edit&nbsp;</ion-button>
+        <div class="para" [innerHTML]="GetNotesVehicle?.note">
+     
         </div>
           <img src="../../../assets/images/madison.jpg" alt="" class="image">
           <img src="../../../assets/images/madison.jpg" alt="" class="image">
