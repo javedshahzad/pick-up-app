@@ -14,11 +14,8 @@
         <ion-button color="success" routerLink="/tabs"><ion-icon class="white" name="chevron-back-outline"></ion-icon>Back</ion-button>
         <ion-button color="dark" (click)="editNote()"><ion-icon name="pencil-outline"></ion-icon>&nbsp;Edit&nbsp;</ion-button>
         <div class="para" [innerHTML]="GetNotesVehicle?.note">
-     
         </div>
-          <img src="../../../assets/images/madison.jpg" alt="" class="image">
-          <img src="../../../assets/images/madison.jpg" alt="" class="image">
-          <img src="../../../assets/images/ionic-application-banner.jpg" alt="" class="image">
+          <img *ngFor="let item of GetNotesVehicle?.pictures" src="{{api.picturesUrl}}{{item}}" alt="" class="image">
       </div>
     </div>
 </ion-content>

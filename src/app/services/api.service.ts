@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment.prod';
 export class ApiService {
   public baseUrl = environment.BaseUrl;
   userData: any;
+  public picturesUrl="https://digital-lab.lu/pick-up/admin/user/pics/";
   constructor(
     public http : HttpClient
   ) { 

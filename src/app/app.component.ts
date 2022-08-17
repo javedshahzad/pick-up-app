@@ -35,4 +35,8 @@ export class AppComponent implements OnInit {
       this.network.watchNetwork();
     })
   }
+  logout(){
+    localStorage.clear();
+    this.nav.navigateRoot("/login");
+  }
 }

@@ -12,7 +12,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class PhotoStep2Page implements OnInit {
   seletedDamage: any;
   vehicleDetails: any;
-  ImageURl: any;
+  ImageURl: any='';
   files: any;
   notes:any;
 
@@ -38,8 +38,6 @@ export class PhotoStep2Page implements OnInit {
     if (event.target.files && event.target.files[0]) {
         var reader = new FileReader();
         reader.onload = (event: any) => {
-          console.log(event)
-          console.log(event)
             this.ImageURl = event.target.result;
       
             // console.log(this.localUrl)
@@ -51,7 +49,7 @@ export class PhotoStep2Page implements OnInit {
   save(){
     let formdata= new FormData();
     formdata.append("file",this.files);
-    formdata.append("damage",this.notes);
+    formdata.append("damage", this.seletedDamage.damagedArea);
     this.api.SetNotePictures(this.vehicleDetails.vehicle_id,formdata).subscribe((res:any)=>{
       console.log(res);
       this.util.toast("Saved")

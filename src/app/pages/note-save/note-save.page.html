@@ -21,9 +21,17 @@
           <ion-button color="dark" expand="block" class="ion-text-capitalize"><ion-icon name="camera"></ion-icon>&nbsp;Take a picture</ion-button>
         <input type="file" class="upload-image" accept="image/jpg,.jpg" (change)="showPreviewImage($event)">
         </div>
-        <img *ngIf="base64Image" [src]="base64Image" alt="" class="image">
-        <img src="../../../assets/images/madison.jpg" alt="" class="image">
-        <img src="../../../assets/images/ionic-application-banner.jpg" alt="" class="image">
+        <img *ngIf="ImageURl" [src]="ImageURl" alt="" class="image">
+
+       <div *ngFor="let item of GetNotesVehicle?.pictures" class="picss-delete">
+          <div class="delete" (click)="deletePics(item)">
+            <ion-icon name="trash"></ion-icon>
+          </div>
+        <img  src="{{api.picturesUrl}}{{item}}" alt="" class="image">
+       </div>
+        
+        
+     
     </div>
   </div>
 

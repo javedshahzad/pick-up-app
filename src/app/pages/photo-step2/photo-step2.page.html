@@ -35,7 +35,7 @@
      <div class="ion-padding ion-text-center" >
       <h3>{{seletedDamage.damagedArea}}</h3>
       <textarea name="" id="" class="para" cols="45" rows="2" [(ngModel)]="notes"></textarea>
-      <img src="../../../assets/images/p3.jpg" alt="" class="image">
+      <img *ngIf="ImageURl" src="{{ImageURl}}" alt="" class="image">
      </div>
    
  </div>
