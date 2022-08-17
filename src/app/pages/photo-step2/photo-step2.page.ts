@@ -50,7 +50,7 @@ export class PhotoStep2Page implements OnInit {
     let formdata= new FormData();
     formdata.append("file",this.files);
     formdata.append("damage", this.seletedDamage.damagedArea);
-    this.api.SetNotePictures(this.vehicleDetails.vehicle_id,formdata).subscribe((res:any)=>{
+    this.api.SetVehiclePictures(this.vehicleDetails.vehicle_id,formdata).subscribe((res:any)=>{
       console.log(res);
       this.util.toast("Saved")
     })

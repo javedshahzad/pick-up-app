@@ -14,7 +14,9 @@ export class ApiService {
   ) { 
     this.userData=JSON.parse(localStorage.getItem("userData"));
   }
-
+setDriver(){
+  this.userData=JSON.parse(localStorage.getItem("userData"));
+}
   loginAuth(phone){
     return this.http.get(this.baseUrl+"check-num.php?mobile="+phone);
   }
@@ -38,5 +40,8 @@ export class ApiService {
   }
   SetNotePictures(vehcileId,body){
     return this.http.post(this.baseUrl+"set-note-pictures.php?driver_id="+this.userData?.driver_id+"&token="+this.userData?.token+"&vehicle_id="+vehcileId,body)
+  }
+  SetVehiclePictures(vehcileId,body){
+    return this.http.post(this.baseUrl+"set-vehicle-pictures.php?driver_id="+this.userData?.driver_id+"&token="+this.userData?.token+"&vehicle_id="+vehcileId,body)
   }
 }

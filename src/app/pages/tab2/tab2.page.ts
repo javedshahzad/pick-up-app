@@ -17,7 +17,8 @@ export class Tab2Page implements OnInit {
     private nav : NavController
   ) {}
   ngOnInit(): void {
-    this.getTodayListings()
+    this.api.setDriver();
+    this.getTodayListings();
   }
     getTodayListings(){
       this.util.showLoader();

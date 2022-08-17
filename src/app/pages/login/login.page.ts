@@ -33,6 +33,7 @@ export class LoginPage implements OnInit {
       this.util.hideLoader();
       localStorage.setItem("userData",JSON.stringify(res));
       this.util.toast("Login successfull");
+      this.api.setDriver();
       this.nav.navigateForward("tabs");
 
      }
