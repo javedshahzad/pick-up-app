@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, Platform } from '@ionic/angular';
 import { NetworkService } from './services/network.service';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -16,7 +19,9 @@ export class AppComponent implements OnInit {
   constructor(
     private nav:NavController,
     private network: NetworkService,
-    private platform:Platform
+    private platform:Platform,
+    private splash:SplashScreen,
+    private statusbar:StatusBar
   ) {}
   ngOnInit(): void {
     
@@ -32,6 +37,8 @@ export class AppComponent implements OnInit {
   initApp()
   {
     this.platform.ready().then((res)=>{
+      this.splash.hide();
+      this.statusbar.backgroundColorByHexString('#0273fe');
       this.network.watchNetwork();
     })
   }

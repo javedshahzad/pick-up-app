@@ -12,6 +12,8 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ng
 import { File } from '@ionic-native/file/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { Network } from '@ionic-native/network/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +30,8 @@ import { Network } from '@ionic-native/network/ngx';
     File,
     Camera,
     Network,
+    StatusBar,
+    SplashScreen,
     { provide: RouteReuseStrategy,
     useClass: IonicRouteStrategy }
   ],
