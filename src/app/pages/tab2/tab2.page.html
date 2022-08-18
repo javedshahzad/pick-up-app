@@ -12,7 +12,7 @@
 
 <ion-content>
       <ion-item lines="none" class="border">
-        <ion-searchbar placeholder="Search" mode="ios" class="custom-search" showCancelButton="never" showClearButton="never"></ion-searchbar>
+        <ion-searchbar placeholder="Search" mode="ios" class="custom-search" showCancelButton="never" showClearButton="never" (ionChange)="Search($event)"></ion-searchbar>
       </ion-item>
       <ion-grid class="ion-no-padding">
         <!-- <ion-row style="background: #ffff; --background: #ffff;" class="ion-no-padding">

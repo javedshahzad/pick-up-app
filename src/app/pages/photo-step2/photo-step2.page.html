@@ -14,15 +14,16 @@
       <ion-row>
         <ion-col>
          <div class="ion-text-center">
-          <ion-button color="success" routerLink="/tabs"><ion-icon class="white" name="arrow-back-outline"></ion-icon>&nbsp;Back</ion-button>
+          <ion-button color="success" (click)="util.goBack()"><ion-icon class="white" name="arrow-back-outline"></ion-icon>&nbsp;Back</ion-button>
          </div>
         </ion-col>
         <ion-col>
           <div class="ion-text-center">
-            <div class="file-div">
+            <ion-button color="dark" (click)="presentActionSheet()">&nbsp;<ion-icon name="camera-outline"></ion-icon>&nbsp;</ion-button>
+            <!-- <div class="file-div">
               <ion-button color="dark">&nbsp;<ion-icon name="camera-outline"></ion-icon>&nbsp;</ion-button>
-              <input type="file" class="upload-image" accept="image/jpg,.jpg" (change)="showPreviewImage($event)">
-            </div>
+              <input type="file" class="upload-image" accept="image/*" (change)="showPreviewImage($event)">
+            </div> -->
           </div>
         </ion-col>
         <ion-col>
@@ -36,6 +37,7 @@
       <h3>{{seletedDamage.damagedArea}}</h3>
       <textarea name="" id="" class="para" cols="45" rows="2" [(ngModel)]="notes"></textarea>
       <img *ngIf="ImageURl" src="{{ImageURl}}" alt="" class="image">
+      <img *ngIf="base64Image" src="{{base64Image}}" alt="" class="image">
      </div>
    
  </div>

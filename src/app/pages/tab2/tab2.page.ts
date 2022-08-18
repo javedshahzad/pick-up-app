@@ -10,6 +10,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class Tab2Page implements OnInit {
   todayListings: any=[];
+  searchArray: any=[];
 
   constructor(
     private api:ApiService,
@@ -27,6 +28,7 @@ export class Tab2Page implements OnInit {
         if(res){
           this.util.hideLoader();
           this.todayListings=res;
+          this.searchArray=res;
         }
        
       })
@@ -75,5 +77,15 @@ export class Tab2Page implements OnInit {
     gotophotoStep1(item){
       console.log(item);
       this.nav.navigateForward("/photo-step1",{queryParams:{data:item}});
+    }
+    Search(eve){
+      const str = eve.detail.value;
+      if(str){
+        let arrdata=this.searchArray;
+        let x =arrdata.filter((a)=>a.vehicle_registration.toUpperCase().includes(str.toUpperCase()));
+        this.todayListings=x;
+      }else{
+        this.todayListings=this.searchArray;
+      }
     }
 }
