@@ -25,9 +25,12 @@ export class PendingsPage implements OnInit {
   ngOnInit() {
     this.DamageData = JSON.parse(localStorage.getItem("damageData")) ? JSON.parse(localStorage.getItem("damageData")) :[];
     this.NotesData = JSON.parse(localStorage.getItem("notesData")) ? JSON.parse(localStorage.getItem("notesData")) :[];
-    console.log(this.DamageData)
+    console.log(this.DamageData);
+    console.log(this.NotesData);
   }
+
   syncData(){
+    console.log(this.network.isConnctedNetwork);
     if(this.network.isConnctedNetwork){
       if(this.DamageData.length > 0){
         this.DamageData.forEach(element => {
@@ -39,6 +42,7 @@ export class PendingsPage implements OnInit {
           })
         });
         localStorage.setItem('damageData',"");
+        this.DamageData=[];
       }
       if(this.NotesData.length > 0){
         this.NotesData.forEach(element => {
@@ -54,9 +58,10 @@ export class PendingsPage implements OnInit {
               })
         });
         localStorage.setItem('notesData',"");
+        this.NotesData=[];
       }
     }else{
-      this.util.toast("Please connect to a network to sync")
+      this.util.toast("Please connect to a network to sync");
     }
   }
 }

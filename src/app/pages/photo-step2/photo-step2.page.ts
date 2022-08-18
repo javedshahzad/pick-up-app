@@ -18,6 +18,8 @@ export class PhotoStep2Page implements OnInit {
   files: any;
   notes:any;
   base64Image: string='';
+  damagaOfflineArray:any=[];
+  ifalreadyHave:any=[];
 
   constructor(
     private api:ApiService,
@@ -54,27 +56,32 @@ export class PhotoStep2Page implements OnInit {
 
   }
   save(){
+    console.log(this.network.isConnctedNetwork);
     if(this.network.isConnctedNetwork){
        this.util.uploadFile(this.base64Image,'set-vehicle-pictures.php',this.vehicleDetails.vehicle_id);
       let formdata= new FormData();
       formdata.append("damage", this.seletedDamage.damagedArea);
       this.api.SetVehiclePictures(this.vehicleDetails.vehicle_id,formdata).subscribe((res:any)=>{
         console.log(res);
+        this.gotophotoStep1(this.vehicleDetails);
       })
     }else{
-      let damagaOfflineArray=[];
-       let ifalreadyHave=JSON.parse(localStorage.getItem("damageData"));
-       if(ifalreadyHave != null || ifalreadyHave !=''){
-        damagaOfflineArray= ifalreadyHave
-       }else{
+       this.ifalreadyHave=JSON.parse(localStorage.getItem("damageData")) ? JSON.parse(localStorage.getItem("damageData")) : [];
+       console.log(this.ifalreadyHave);
+       if(this.ifalreadyHave.length > 0){
+        this.damagaOfflineArray=this.ifalreadyHave;
+        console.log("here")
+       }
         let damageData={
           "damage":this.seletedDamage.damagedArea,
-          "base64Image":this.base64Image,
-          "vehicle_id": this.vehicleDetails.vehicle_id,
+          "base64Image":this.base64Image ? this.base64Image : "",
+          "vehicle_id": this.vehicleDetails.vehicle_id
         }
-        damagaOfflineArray.push(damageData);
-        localStorage.setItem("damageData",JSON.stringify(damageData));
-       }
+
+        this.damagaOfflineArray.push(damageData);
+        localStorage.setItem("damageData",JSON.stringify(this.damagaOfflineArray));
+        this.util.toast("Saved");
+        this.gotophotoStep1(this.vehicleDetails);
 
     }
 

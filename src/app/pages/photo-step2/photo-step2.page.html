@@ -37,7 +37,7 @@
       <h3>{{seletedDamage.damagedArea}}</h3>
       <textarea name="" id="" class="para" cols="45" rows="2" [(ngModel)]="notes"></textarea>
       <img *ngIf="base64Image" src="{{base64Image}}" alt="" class="image">
-      <img *ngFor="let item of vehicleDetails?.pictures" src="{{item}}" alt="" class="image">
+      <img *ngFor="let item of vehicleDetails?.pictures" src="{{item ? item:'assets/images/p4.jpg'}}" alt="" class="image">
      </div>
    
  </div>

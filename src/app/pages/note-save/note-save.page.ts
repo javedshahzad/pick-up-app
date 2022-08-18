@@ -20,6 +20,8 @@ export class NoteSavePage implements OnInit {
   notes:any;
   base64Image: any='';
   deletePicsArray:any=[];
+  notesSaveOffline: any=[];
+  ifalreadyHave: any=[];
   constructor(
     private api:ApiService,
     private util:UtilsService,
@@ -128,30 +130,33 @@ export class NoteSavePage implements OnInit {
           var stringify = JSON.stringify(data);
           this.api.SetNote(this.vehicleDetails.vehicle_id,stringify).subscribe((res:any)=>{
           console.log(res);
+          this.gotoNote(this.vehicleDetails);
           })
       }else{
-          let notesSaveOffline=[];
-           let ifalreadyHave=JSON.parse(localStorage.getItem("notesData"));
-           if(ifalreadyHave != null || ifalreadyHave !=''){
-            notesSaveOffline= ifalreadyHave
-           }else{
-            let damageData={
-              "note":this.notes,
-              "base64Image":this.base64Image,
-              "vehicle_id": this.vehicleDetails.vehicle_id,
-              "pictures_to_delete":this.deletePicsArray
-            }
-            notesSaveOffline.push(damageData);
-            localStorage.setItem("notesData",JSON.stringify(damageData));
+           this.ifalreadyHave=JSON.parse(localStorage.getItem("notesData")) ? JSON.parse(localStorage.getItem("notesData")) : [];
+           if(this.ifalreadyHave.length > 0){
+            this.notesSaveOffline= this.ifalreadyHave
            }
+            let damageData={
+              "note":this.notes ? this.notes : "",
+              "base64Image":this.base64Image ? this.base64Image : "",
+              "vehicle_id": this.vehicleDetails.vehicle_id,
+              "pictures_to_delete":this.deletePicsArray ? this.deletePicsArray : "",
+            }
+
+            this.notesSaveOffline.push(damageData);
+            localStorage.setItem("notesData",JSON.stringify(this.notesSaveOffline));
+            this.util.toast("Saved");
+            this.gotoNote(this.vehicleDetails);
     
       }
       
     }
     deletePics(item){
       var filename=item.split('.').slice(0, -1).join('.')
-      console.log(filename)
-      this.deletePicsArray.push(item);
+      console.log(filename);
+      document.getElementById(item).remove();
+      this.deletePicsArray.push(filename);
     }
     gotoNote(item){
       console.log(item);
