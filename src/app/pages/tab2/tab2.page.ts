@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
+import { NetworkService } from 'src/app/services/network.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -15,11 +16,18 @@ export class Tab2Page implements OnInit {
   constructor(
     private api:ApiService,
     private util:UtilsService,
-    private nav : NavController
+    private nav : NavController,
+    private network:NetworkService
   ) {}
   ngOnInit(): void {
+    console.log(navigator.onLine)
     this.api.setDriver();
-    this.getTodayListings();
+    if(this.network.isConnctedNetwork){
+      this.getTodayListings();
+    }else{
+      this.todayListings=JSON.parse(localStorage.getItem('todayListings'));
+    }
+   
   }
     getTodayListings(){
       this.util.showLoader();
@@ -29,6 +37,7 @@ export class Tab2Page implements OnInit {
           this.util.hideLoader();
           this.todayListings=res;
           this.searchArray=res;
+          localStorage.setItem('todayListings',JSON.stringify(this.todayListings));
         }
        
       })

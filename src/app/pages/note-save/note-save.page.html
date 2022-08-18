@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <img src="../../../assets/icon/favicon.png" alt="" slot="start" class="logo">
-    <ion-title>Note Save</ion-title>
+    <ion-title>{{vehicleDetails.vehicle_registration}}</ion-title>
     <ion-buttons slot="end">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -12,7 +12,7 @@
 
   <div class="ion-padding">
     <div class="ion-padding">
-      <ion-button color="success" (click)="util.goBack()"><ion-icon class="white" name="chevron-back-outline"></ion-icon>Back</ion-button>
+      <ion-button color="success" (click)="gotoNote(vehicleDetails)"><ion-icon class="white" name="chevron-back-outline"></ion-icon>Back</ion-button>
       <ion-button color="danger" (click)="saveNotes()"><ion-icon name="save-outline"></ion-icon>&nbsp;Save&nbsp;</ion-button>
         
       <textarea class="para" cols="46" rows="10" [(ngModel)]="notes"></textarea>

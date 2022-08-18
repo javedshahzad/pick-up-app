@@ -113,6 +113,8 @@ export class NoteSavePage implements OnInit {
             });
     }
     saveNotes(){
+      this.network.watchNetwork();
+      console.log(this.network.isConnctedNetwork);
       if(this.network.isConnctedNetwork){
           //set note pic
           if(this.base64Image){
@@ -151,7 +153,10 @@ export class NoteSavePage implements OnInit {
       console.log(filename)
       this.deletePicsArray.push(item);
     }
-
+    gotoNote(item){
+      console.log(item);
+      this.nav.navigateForward("/note",{queryParams:{data:item}});
+    }
         // if(this.files){
       //   let formdata= new FormData();
       //   formdata.append("file",this.files);

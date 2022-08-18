@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
+import { NetworkService } from 'src/app/services/network.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -15,10 +16,15 @@ export class Tab3Page implements OnInit {
   constructor(
     private api:ApiService,
     private util:UtilsService,
-    private nav : NavController
+    private nav : NavController,
+    private network:NetworkService
   ) {}
   ngOnInit(): void {
-   this.getTomorrowListings();
+   if(this.network.isConnctedNetwork){
+    this.getTomorrowListings();
+  }else{
+    this.tomorrowListings=JSON.parse(localStorage.getItem('tomorrowListings'));
+  }
   }
   getTomorrowListings(){
     this.util.showLoader();
@@ -28,6 +34,7 @@ export class Tab3Page implements OnInit {
         this.util.hideLoader();
         this.tomorrowListings=res;
         this.searchArray=res;
+        localStorage.setItem('tomorrowListings',JSON.stringify(this.tomorrowListings));
       }
      
     })

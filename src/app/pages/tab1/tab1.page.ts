@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
+import { NetworkService } from 'src/app/services/network.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -15,10 +16,16 @@ export class Tab1Page implements OnInit {
   constructor(
     private api:ApiService,
     private util:UtilsService,
-    private nav : NavController
+    private nav : NavController,
+    private network:NetworkService
   ) {}
   ngOnInit(): void {
-    this.getYesterdayListings();
+    
+    if(this.network.isConnctedNetwork){
+      this.getYesterdayListings();
+    }else{
+      this.yesterdayListings=JSON.parse(localStorage.getItem('yesterdayListings'));
+    }
   }
   getYesterdayListings(){
     this.util.showLoader();
@@ -27,7 +34,9 @@ export class Tab1Page implements OnInit {
       if(res){
         this.util.hideLoader();
         this.yesterdayListings=res;
-      }this.searchArray=res;
+        this.searchArray=res;
+        localStorage.setItem('yesterdayListings',JSON.stringify(this.yesterdayListings));
+      }
      
     })
   }

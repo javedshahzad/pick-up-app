@@ -130,4 +130,8 @@ export class PhotoStep2Page implements OnInit {
                 // Handle error
             });
     }
+    gotophotoStep1(item){
+      console.log(item);
+      this.nav.navigateForward("/photo-step1",{queryParams:{data:item}});
+    }
 }
