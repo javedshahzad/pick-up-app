@@ -41,7 +41,13 @@ export class Tab2Page implements OnInit {
       "way":"pick_up",
       "vehicle_id":item.vehicle_id,
       "action":"set"
-    }]
+    },
+      {
+        "way":"bring_back",
+        "vehicle_id":item.vehicle_id,
+        "action":"unset"
+        },
+  ]
     var strigifydata=JSON.stringify(data);
       this.api.pickupAndBringBack(strigifydata).subscribe((res:any)=>{
         console.log(res);
@@ -52,11 +58,18 @@ export class Tab2Page implements OnInit {
       })
     }
     bringBack(item){
-      let data=[{
+      let data=[
+        {
         "way":"bring_back",
         "vehicle_id":item.vehicle_id,
-        "action":"set"
-      }];
+        "action":"unset"
+        },
+        {
+          "way":"pick_up",
+          "vehicle_id":item.vehicle_id,
+          "action":"unset"
+         }
+      ];
       var strigifydata=JSON.stringify(data);
       this.api.pickupAndBringBack(strigifydata).subscribe((res:any)=>{
         console.log(res);

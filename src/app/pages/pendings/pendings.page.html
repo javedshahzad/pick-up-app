@@ -18,10 +18,10 @@
         <div class="damage" *ngIf="DamageData?.length > 0">
           <img *ngFor="let item of DamageData" src="{{item.base64Image}}" alt="" class="image">
         </div>
-        <!-- <div class="notes">
-          <img src="../../../assets/images/p2.jpg" alt="" class="image">
-        </div> -->
-        <div class="noListing ion-text-center" *ngIf="DamageData?.length === 0">
+        <div class="notes" *ngIf="NotesData?.length > 0">
+          <img *ngFor="let item of NotesData" src="{{item.base64Image}}" alt="" class="image">
+        </div>
+        <div class="noListing ion-text-center" *ngIf="DamageData?.length === 0 && NotesData?.length === 0">
           <div class="no-found ion-text-center">
             No data to sync
           </div>

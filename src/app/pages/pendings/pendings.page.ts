@@ -12,6 +12,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class PendingsPage implements OnInit {
   DamageData: any=[];
+  NotesData: any=[];
 
   constructor(
     private api:ApiService,
@@ -23,19 +24,39 @@ export class PendingsPage implements OnInit {
 
   ngOnInit() {
     this.DamageData = JSON.parse(localStorage.getItem("damageData")) ? JSON.parse(localStorage.getItem("damageData")) :[];
+    this.NotesData = JSON.parse(localStorage.getItem("notesData")) ? JSON.parse(localStorage.getItem("notesData")) :[];
     console.log(this.DamageData)
   }
   syncData(){
-    if(this.DamageData.length > 0){
-      this.DamageData.forEach(element => {
-        this.util.uploadFile(element.base64Image,'set-vehicle-pictures.php',element.vehicle_id);
-        let formdata= new FormData();
-        formdata.append("damage", element.damage);
-        this.api.SetVehiclePictures(element.vehicle_id,formdata).subscribe((res:any)=>{
-          console.log(res);
-        })
-      });
-   
+    if(this.network.isConnctedNetwork){
+      if(this.DamageData.length > 0){
+        this.DamageData.forEach(element => {
+          this.util.uploadFile(element.base64Image,'set-vehicle-pictures.php',element.vehicle_id);
+          let formdata= new FormData();
+          formdata.append("damage", element.damage);
+          this.api.SetVehiclePictures(element.vehicle_id,formdata).subscribe((res:any)=>{
+            console.log(res);
+          })
+        });
+        localStorage.setItem('damageData',"");
+      }
+      if(this.NotesData.length > 0){
+        this.NotesData.forEach(element => {
+          this.util.uploadFile(element.base64Image,'set-note-pictures.php',element.vehicle_id);
+            // set notes 
+            let data ={
+              "note":element.note,
+              "pictures_to_delete":element.pictures_to_delete
+              }
+              var stringify = JSON.stringify(data);
+              this.api.SetNote(element.vehicle_id,stringify).subscribe((res:any)=>{
+              console.log(res);
+              })
+        });
+        localStorage.setItem('notesData',"");
+      }
+    }else{
+      this.util.toast("Please connect to a network to sync")
     }
   }
 }

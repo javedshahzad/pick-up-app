@@ -31,7 +31,8 @@ export class PhotoStep2Page implements OnInit {
     this.active.queryParams.subscribe((res:any)=>{
       console.log(res.data);
       this.seletedDamage=res.data;
-      this.vehicleDetails=res.vehicleDetails
+      this.vehicleDetails=res.vehicleDetails;
+      console.log(this.vehicleDetails)
     })
   }
 

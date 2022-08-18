@@ -61,11 +61,11 @@
                 <ion-item lines="none" class="ion-no-padding">
                   <ion-button *ngIf="item.driver_id_pick_up ==='0' && item.driver_id_bring_back !='***'" (click)="pickup(item)" color="warning" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
                   <ion-button *ngIf="item.driver_id_pick_up !='0'" color="light"  class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon>{{item.driver_trigram_pick_up}}</ion-button>
-                  <ion-button color="success" (click)="bringBack(item)" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>        
+                  <ion-button  color="success" (click)="bringBack(item)" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>        
                 </ion-item>
             </ion-col>
             <ion-col size="5"  class="ion-no-padding">
-            <ion-item lines="none" class="ion-no-padding" *ngIf="item.driver_id_pick_up !='0' || item.driver_id_pick_up !='0'">
+            <ion-item lines="none" class="ion-no-padding" *ngIf="item.driver_id_pick_up !='0' || item.driver_id_bring_back !='0'">
               <ion-button  color="secondary" (click)="ckeckUp(item)" size="small" class="margin hhh shadow-none"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
               <ion-button [disabled]="!item.can_set_note" color="tertiary" (click)="gotoNote(item)" size="small" class="hhh shadow-none"><ion-icon name="create-outline"></ion-icon></ion-button>
               <ion-button  color="dark" (click)="gotophotoStep1(item)" size="small" class="hhh shadow-none"><ion-icon name="camera"></ion-icon></ion-button>

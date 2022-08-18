@@ -9,7 +9,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-item lines="none" class="border">
-    <ion-searchbar placeholder="Search" mode="ios" class="custom-search" showCancelButton="never" showClearButton="never"></ion-searchbar>
+    <ion-searchbar (ionChange)="Search($event)" placeholder="Search" mode="ios" class="custom-search" showCancelButton="never" showClearButton="never"></ion-searchbar>
   </ion-item>
   <ion-grid class="ion-no-padding">
     <!-- <ion-row style="background: #ffff; --background: #ffff;" class="ion-no-padding">
@@ -56,15 +56,16 @@
         </ion-col>
         <ion-col size="4" class="ion-no-padding">
             <ion-item lines="none" class="ion-no-padding">
-              <ion-button  color="light" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon>JCA</ion-button>
-                <ion-button color="success" routerLink="/checkup" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>        
+              <ion-button *ngIf="item.driver_id_pick_up ==='0' && item.driver_id_bring_back !='***'" (click)="pickup(item)" color="warning" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+              <ion-button *ngIf="item.driver_id_pick_up !='0'" color="light"  class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon>{{item.driver_trigram_pick_up}}</ion-button>
+              <ion-button  color="success" (click)="bringBack(item)" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>        
             </ion-item>
         </ion-col>
         <ion-col size="5"  class="ion-no-padding">
-        <ion-item lines="none" class="ion-no-padding">
-          <ion-button  color="secondary" (click)="gotoUrl('/checkup')" size="small" class="margin hhh shadow-none"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
-          <ion-button [disabled]="!item.can_set_note" color="tertiary" (click)="gotoUrl('/note')" size="small" class="hhh shadow-none"><ion-icon name="create-outline"></ion-icon></ion-button>
-          <ion-button  color="dark" (click)="gotoUrl('/photo-step1')" size="small" class="hhh shadow-none"><ion-icon name="camera"></ion-icon></ion-button>
+        <ion-item lines="none" class="ion-no-padding" *ngIf="item.driver_id_pick_up !='0' || item.driver_id_bring_back !='0'">
+          <ion-button  color="secondary" (click)="ckeckUp(item)" size="small" class="margin hhh shadow-none"><ion-icon name="checkmark-circle-outline"></ion-icon></ion-button>
+          <ion-button [disabled]="!item.can_set_note" color="tertiary" (click)="gotoNote(item)" size="small" class="hhh shadow-none"><ion-icon name="create-outline"></ion-icon></ion-button>
+          <ion-button  color="dark" (click)="gotophotoStep1(item)" size="small" class="hhh shadow-none"><ion-icon name="camera"></ion-icon></ion-button>
         </ion-item>
         </ion-col>
       </ion-row>
