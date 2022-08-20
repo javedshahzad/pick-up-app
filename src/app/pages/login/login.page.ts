@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class LoginPage implements OnInit {
     private formbuilder: FormBuilder,
     private api :ApiService,
     private nav : NavController,
-    private util : UtilsService
+    private util : UtilsService,
+    private storage:StorageService
   ) { }
 
   ngOnInit() {

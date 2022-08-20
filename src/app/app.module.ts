@@ -14,6 +14,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { Network } from '@ionic-native/network/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
       AppRoutingModule,
       HttpClientModule,
       ReactiveFormsModule,
+      IonicStorageModule.forRoot(),
     ],
   providers: [
     FileTransfer,
