@@ -20,6 +20,9 @@ export class PhotoStep2Page implements OnInit {
   base64Image: string='';
   damagaOfflineArray:any=[];
   ifalreadyHave:any=[];
+  damagedDataGet: any;
+  SuccessfilImageUpload: any;
+
 
   constructor(
     private api:ApiService,
@@ -34,11 +37,25 @@ export class PhotoStep2Page implements OnInit {
       console.log(res.data);
       this.seletedDamage=res.data;
       this.vehicleDetails=res.vehicleDetails;
-      console.log(this.vehicleDetails)
+      console.log(this.vehicleDetails);
+      this.getDamagedDataVehicle(this.vehicleDetails.vehicle_id);
     })
   }
 
   ngOnInit() {
+  }
+  getDamagedDataVehicle(id){
+    this.api.GetDamagedData(id).subscribe((res)=>{
+      if(res){
+        console.log(res)
+        let arr=[];
+        arr.push(res);
+        this.damagedDataGet=arr[0][this.seletedDamage.damagedArea];
+        console.log(this.damagedDataGet);
+        this.notes=this.damagedDataGet.comment;
+        this.base64Image="";
+      }
+    })
   }
   showPreviewImage(event: any) {
     console.log(event)
@@ -55,38 +72,34 @@ export class PhotoStep2Page implements OnInit {
     }
 
   }
-  save(){
+ async save(){
     console.log(this.network.isConnctedNetwork);
     if(this.network.isConnctedNetwork){
-       this.util.uploadFile(this.base64Image,'set-vehicle-pictures.php',this.vehicleDetails.vehicle_id);
-      let formdata= new FormData();
-      formdata.append("damage", this.seletedDamage.damagedArea);
-      this.api.SetVehiclePictures(this.vehicleDetails.vehicle_id,formdata).subscribe((res:any)=>{
-        console.log(res);
-        this.gotophotoStep1(this.vehicleDetails);
-      })
+     this.SuccessfilImageUpload = await this.util.uploadFileFordamagae(this.base64Image,'set-vehicle-pictures.php',this.vehicleDetails.vehicle_id,this.notes,this.seletedDamage.damagedArea);
+        if(this.SuccessfilImageUpload){
+          this.getDamagedDataVehicle(this.vehicleDetails.vehicle_id);
+        }
+        // this.gotophotoStep1(this.vehicleDetails);
     }else{
        this.ifalreadyHave=JSON.parse(localStorage.getItem("damageData")) ? JSON.parse(localStorage.getItem("damageData")) : [];
        console.log(this.ifalreadyHave);
        if(this.ifalreadyHave.length > 0){
         this.damagaOfflineArray=this.ifalreadyHave;
-        console.log("here")
+        console.log("here");
        }
         let damageData={
           "damage":this.seletedDamage.damagedArea,
           "base64Image":this.base64Image ? this.base64Image : "",
           "vehicle_id": this.vehicleDetails.vehicle_id
         }
-
         this.damagaOfflineArray.push(damageData);
         localStorage.setItem("damageData",JSON.stringify(this.damagaOfflineArray));
         this.util.toast("Saved");
         this.gotophotoStep1(this.vehicleDetails);
 
     }
-
- 
   }
+
 
   async presentActionSheet() {
     let actionSheet = await this.actionSheetCtrl.create({
@@ -123,7 +136,9 @@ export class PhotoStep2Page implements OnInit {
   }
   takePhoto(sourceType) {
     const options: CameraOptions = {
-      quality: 100,
+      quality: 80,
+      targetWidth: 1000,
+      targetHeight: 1000,
       sourceType: sourceType,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
@@ -131,7 +146,6 @@ export class PhotoStep2Page implements OnInit {
     }
        this.camera.getPicture(options).then((imageData) => {
                 this.base64Image  = "data:image/jpeg;base64,"+imageData;
-             
             }, (err) => {
               console.log(err);
                 // Handle error

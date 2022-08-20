@@ -12,7 +12,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class Tab1Page implements OnInit {
   yesterdayListings: any=[];
   searchArray: any=[];
-
+  emptySearch:boolean=false;
   constructor(
     private api:ApiService,
     private util:UtilsService,
@@ -28,11 +28,11 @@ export class Tab1Page implements OnInit {
     }
   }
   getYesterdayListings(){
-    this.util.showLoader();
+
     this.api.getListings("yesterday").subscribe((res:any)=>{
       console.log(res);
       if(res){
-        this.util.hideLoader();
+  
         this.yesterdayListings=res;
         this.searchArray=res;
         localStorage.setItem('yesterdayListings',JSON.stringify(this.yesterdayListings));
@@ -46,6 +46,9 @@ export class Tab1Page implements OnInit {
       let arrdata=this.searchArray;
       let x =arrdata.filter((a)=>a.vehicle_registration.toUpperCase().includes(str.toUpperCase()));
       this.yesterdayListings=x;
+      if(x.length === 0){
+        this.emptySearch=true;
+       }
     }else{
       this.yesterdayListings=this.searchArray;
     }

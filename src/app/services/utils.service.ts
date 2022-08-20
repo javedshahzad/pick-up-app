@@ -62,19 +62,51 @@ export class UtilsService {
       fileName: filename+'-file.jpg',
       chunkedMode: false,
       mimeType: "image/jpeg",
-      headers: {}
+      headers: {},
       }
-   fileTransfer.upload(this.base64Image,this.baseUrl+url+"?driver_id="+this.userData?.driver_id+"&token="+this.userData?.token+"&vehicle_id="+vehcileId, options)
-  .then((data) => {
-  console.log(data+" Uploaded Successfully");
-  this.toast("Saved");
-  loading.dismiss();
-  return true;
-}, (err) => {
-  console.log(err);
-  this.toast("Error while uploading");
-  return false;
-});
+        fileTransfer.upload(this.base64Image,this.baseUrl+url+"?driver_id="+this.userData?.driver_id+"&token="+this.userData?.token+"&vehicle_id="+vehcileId, options)
+        .then((data) => {
+        console.log(JSON.stringify(data)+" Uploaded Successfully");
+        this.toast("Saved");
+        loading.dismiss();
+        return true;
+        }, (err) => {
+        console.log(err);
+        this.toast("Error while uploading");
+        return false;
+        });
+  }
+  async uploadFileFordamagae(base64Image,url,vehcileId,note,damage){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+      spinner:"lines-sharp",
+      mode:"ios"
+    });
+    await loading.present();
+    this.userData=JSON.parse(localStorage.getItem("userData"));
+    this.base64Image=base64Image;
+    const fileTransfer: FileTransferObject = this.transfer.create();
+     
+    let filename=Date.now();
+      let options: FileUploadOptions = {
+      fileKey: 'file',
+      fileName: filename+'-file.jpg',
+      chunkedMode: false,
+      mimeType: "image/jpeg",
+      headers: {},
+      params :{ "damage" : damage ? damage : "","comment":note ? note : "" }
+      }
+        fileTransfer.upload(this.base64Image,this.baseUrl+url+"?driver_id="+this.userData?.driver_id+"&token="+this.userData?.token+"&vehicle_id="+vehcileId, options)
+        .then((data) => {
+        console.log(JSON.stringify(data)+" Uploaded Successfully");
+        this.toast("Saved");
+        loading.dismiss();
+        return true;
+        }, (err) => {
+        console.log(err);
+        this.toast("Error while uploading");
+        return false;
+        });
   }
 
   goBack(){

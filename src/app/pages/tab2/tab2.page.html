@@ -60,8 +60,8 @@
             <ion-col size="4" class="ion-no-padding">
                 <ion-item lines="none" class="ion-no-padding">
                   <ion-button *ngIf="item.driver_id_pick_up ==='0' && item.driver_id_bring_back !='***'" (click)="pickup(item)" color="warning" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
-                  <ion-button *ngIf="item.driver_id_pick_up !='0'" color="light"  class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon>{{item.driver_trigram_pick_up}}</ion-button>
-                  <ion-button  color="success" (click)="bringBack(item)" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>        
+                  <ion-button (click)="againUnset(item)" *ngIf="item.driver_id_pick_up !='0'" color="light"  class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon>{{item.driver_trigram_pick_up}}</ion-button>
+                  <ion-button  color="success" [disabled]="item.driver_id_pick_up === '0'" (click)="bringBack(item)" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>        
                 </ion-item>
             </ion-col>
             <ion-col size="5"  class="ion-no-padding">
@@ -74,10 +74,28 @@
           </ion-row>
         </div>
       </ion-grid>
-      <div class="noListing ion-text-center" *ngIf="todayListings.length === 0">
+      <div class="noListing ion-text-center" *ngIf="emptySearch">
         <div class="no-found ion-text-center">
           No vehicle
         </div>
       </div>
+      <ion-list *ngIf="todayListings.length === 0">
+        <ion-item *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]" [hidden]="emptySearch === true">
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text [animated]="true" style="width: 60%;"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text [animated]="true" style="width: 30%;"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
 </ion-content>
 

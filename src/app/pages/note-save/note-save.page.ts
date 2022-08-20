@@ -22,6 +22,7 @@ export class NoteSavePage implements OnInit {
   deletePicsArray:any=[];
   notesSaveOffline: any=[];
   ifalreadyHave: any=[];
+  ImageUploadedSuccess: any;
   constructor(
     private api:ApiService,
     private util:UtilsService,
@@ -35,7 +36,7 @@ export class NoteSavePage implements OnInit {
     this.active.queryParams.subscribe((res:any)=>{
       console.log(res.vehicleDetails);
       this.vehicleDetails=res.vehicleDetails;
-      this.getvehicleNotes(this.vehicleDetails.vehicle_id)
+      this.getvehicleNotes(this.vehicleDetails.vehicle_id);
     })
   }
 
@@ -100,7 +101,9 @@ export class NoteSavePage implements OnInit {
   }
   takePhoto(sourceType) {
     const options: CameraOptions = {
-      quality: 100,
+      quality: 80,
+      targetWidth: 1000,
+      targetHeight: 1000,
       sourceType: sourceType,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
@@ -114,14 +117,12 @@ export class NoteSavePage implements OnInit {
                 console.log(err);
             });
     }
-    saveNotes(){
+   async saveNotes(){
       this.network.watchNetwork();
       console.log(this.network.isConnctedNetwork);
       if(this.network.isConnctedNetwork){
           //set note pic
-          if(this.base64Image){
-            this.util.uploadFile(this.base64Image,'set-note-pictures.php',this.vehicleDetails.vehicle_id);
-          }
+          this.ImageUploadedSuccess =await this.util.uploadFile(this.base64Image,'set-note-pictures.php',this.vehicleDetails.vehicle_id);
           // set notes 
           let data ={
           "note":this.notes,
@@ -129,9 +130,14 @@ export class NoteSavePage implements OnInit {
           }
           var stringify = JSON.stringify(data);
           this.api.SetNote(this.vehicleDetails.vehicle_id,stringify).subscribe((res:any)=>{
-          console.log(res);
-          this.gotoNote(this.vehicleDetails);
-          })
+         console.log(res);
+          });
+          if(this.ImageUploadedSuccess){
+            this.getvehicleNotes(this.vehicleDetails.vehicle_id);
+            this.base64Image="";
+            this.api.isupdateData.next(true);
+            // this.gotoNote(this.vehicleDetails);
+          }
       }else{
            this.ifalreadyHave=JSON.parse(localStorage.getItem("notesData")) ? JSON.parse(localStorage.getItem("notesData")) : [];
            if(this.ifalreadyHave.length > 0){
@@ -169,4 +175,5 @@ export class NoteSavePage implements OnInit {
       //     console.log(res);
       //   })
       // }
+      
 }

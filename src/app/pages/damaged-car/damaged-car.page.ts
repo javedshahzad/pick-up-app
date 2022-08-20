@@ -11,8 +11,8 @@ export class DamagedCarPage implements OnInit {
 
   ngOnInit() {
     let data={
-      "id":"1",
-      "damagedArea":"windshield"
+      "id":"0",
+      "damagedArea":"generic"
     };
     this.getdataFromDamagedcar.emit(data);
   }

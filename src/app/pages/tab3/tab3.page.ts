@@ -12,7 +12,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class Tab3Page implements OnInit {
   tomorrowListings: any=[];
   searchArray: any=[];
-
+  emptySearch:boolean=false;
   constructor(
     private api:ApiService,
     private util:UtilsService,
@@ -27,11 +27,9 @@ export class Tab3Page implements OnInit {
   }
   }
   getTomorrowListings(){
-    this.util.showLoader();
     this.api.getListings("tomorrow").subscribe((res:any)=>{
       console.log(res);
       if(res){
-        this.util.hideLoader();
         this.tomorrowListings=res;
         this.searchArray=res;
         localStorage.setItem('tomorrowListings',JSON.stringify(this.tomorrowListings));
@@ -46,6 +44,9 @@ export class Tab3Page implements OnInit {
       let arrdata=this.searchArray;
       let x =arrdata.filter((a)=>a.vehicle_registration.toUpperCase().includes(str.toUpperCase()));
       this.tomorrowListings=x;
+      if(x.length === 0){
+        this.emptySearch=true;
+       }
     }else{
       this.tomorrowListings=this.searchArray;
     }

@@ -59,3 +59,8 @@ ion-toolbar{
   width: 30px;
   margin-left: 10px;
 }
+ion-skeleton-text {
+  --border-radius: 9999px;
+  --background:rgba(0, 160, 2, 1);
+  --background-rgb: 0, 160, 2;
+}

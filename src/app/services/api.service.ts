@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
@@ -10,6 +11,7 @@ export class ApiService {
   userData: any;
   public picturesUrlOld="https://digital-lab.lu/pick-up/admin/user/pics/";
   public picturesUrl="https://digital-lab.lu/pick-up/admin/app/user/pics/";
+  public isupdateData = new BehaviorSubject(true);
   constructor(
     public http : HttpClient
   ) { 
@@ -44,5 +46,9 @@ setDriver(){
   }
   SetVehiclePictures(vehcileId,body){
     return this.http.post(this.baseUrl+"set-vehicle-pictures.php?driver_id="+this.userData?.driver_id+"&token="+this.userData?.token+"&vehicle_id="+vehcileId,body)
+  }
+
+  GetDamagedData(vehcileId){
+    return this.http.get(this.baseUrl+"get-vehicle-pictures.php?driver_id="+this.userData?.driver_id+"&token="+this.userData?.token+"&vehicle_id="+vehcileId)
   }
 }

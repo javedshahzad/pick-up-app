@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
     })
   }
   logout(){
-    localStorage.clear();
+    localStorage.removeItem('userData');
     this.nav.navigateRoot("/login");
   }
 }

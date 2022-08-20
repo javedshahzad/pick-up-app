@@ -22,7 +22,10 @@ export class NotePage implements OnInit {
     this.active.queryParams.subscribe((res:any)=>{
       console.log(res.data);
       this.vehicleDetails=res.data;
-      this.getvehicleNotes(this.vehicleDetails.vehicle_id)
+      this.api.isupdateData.subscribe(_isLogin=>{
+        this.getvehicleNotes(this.vehicleDetails.vehicle_id);
+      });
+  
     })
   }
 
