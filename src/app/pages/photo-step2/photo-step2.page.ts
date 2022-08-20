@@ -53,7 +53,6 @@ export class PhotoStep2Page implements OnInit {
         this.damagedDataGet=arr[0][this.seletedDamage.damagedArea];
         console.log(this.damagedDataGet);
         this.notes=this.damagedDataGet.comment;
-        this.base64Image="";
       }
     })
   }

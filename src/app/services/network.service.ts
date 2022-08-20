@@ -11,6 +11,9 @@ export class NetworkService {
     private network: Network,
     private util:UtilsService
   ) { }
+  checkNetworkType(){
+   return this.network.type;
+  }
   watchNetwork(){
           // watch network for a disconnection
           this.network.onDisconnect().subscribe((res) => {

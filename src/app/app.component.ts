@@ -43,10 +43,6 @@ export class AppComponent implements OnInit {
       this.statusbar.backgroundColorByHexString('#0273fe');
       this.network.watchNetwork();
       this.storage.init();
-      this.storage.set("name","javed shahzad nns").then((res)=>{
-        console.log(":saved");
-        console.log(res);
-      });
     })
   }
   logout(){

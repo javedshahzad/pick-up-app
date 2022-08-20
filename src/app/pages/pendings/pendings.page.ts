@@ -19,7 +19,7 @@ export class PendingsPage implements OnInit {
     private util:UtilsService,
     private active:ActivatedRoute,
     private nav:NavController,
-    private network:NetworkService
+    private network:NetworkService,
   ) { }
 
   ngOnInit() {
@@ -30,8 +30,8 @@ export class PendingsPage implements OnInit {
   }
 
   syncData(){
-    console.log(this.network.isConnctedNetwork);
-    if(this.network.isConnctedNetwork){
+    console.log(this.network.isConnctedNetwork,this.network.checkNetworkType());
+    if(this.network.isConnctedNetwork && this.network.checkNetworkType() === 'wifi' || this.network.checkNetworkType() === '4g'){
       if(this.DamageData.length > 0){
         this.DamageData.forEach(element => {
           this.util.uploadFile(element.base64Image,'set-vehicle-pictures.php',element.vehicle_id);
@@ -61,7 +61,7 @@ export class PendingsPage implements OnInit {
         this.NotesData=[];
       }
     }else{
-      this.util.toast("Please connect to a network to sync");
+      this.util.toast("Please connect to a wifi or 4G to sync data");
     }
   }
 }
