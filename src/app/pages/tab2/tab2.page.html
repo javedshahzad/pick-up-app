@@ -79,8 +79,8 @@
           No vehicle
         </div>
       </div>
-      <ion-list *ngIf="todayListings.length === 0">
-        <ion-item *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]" [hidden]="emptySearch === true">
+      <ion-list *ngIf="todayListings.length === 0" [hidden]="emptySearch === true">
+        <ion-item *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]" >
           <ion-thumbnail slot="start">
             <ion-skeleton-text [animated]="true"></ion-skeleton-text>
           </ion-thumbnail>

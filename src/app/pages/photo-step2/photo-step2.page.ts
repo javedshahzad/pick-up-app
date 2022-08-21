@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { Camera,CameraOptions } from '@ionic-native/camera/ngx';
 import { NetworkService } from 'src/app/services/network.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-photo-step2',
@@ -31,7 +32,8 @@ export class PhotoStep2Page implements OnInit {
     private nav:NavController,
     private actionSheetCtrl: ActionSheetController,
     private camera: Camera,
-    private network:NetworkService
+    private network:NetworkService,
+    private storage:StorageService
   ) { 
     this.active.queryParams.subscribe((res:any)=>{
       console.log(res.data);
@@ -52,7 +54,7 @@ export class PhotoStep2Page implements OnInit {
         arr.push(res);
         this.damagedDataGet=arr[0][this.seletedDamage.damagedArea];
         console.log(this.damagedDataGet);
-        this.notes=this.damagedDataGet.comment;
+        this.notes=this.damagedDataGet?.comment;
       }
     })
   }
@@ -73,30 +75,41 @@ export class PhotoStep2Page implements OnInit {
   }
  async save(){
     console.log(this.network.isConnctedNetwork);
+   if(this.base64Image){
     if(this.network.isConnctedNetwork){
-     this.SuccessfilImageUpload = await this.util.uploadFileFordamagae(this.base64Image,'set-vehicle-pictures.php',this.vehicleDetails.vehicle_id,this.notes,this.seletedDamage.damagedArea);
-        if(this.SuccessfilImageUpload){
-          this.getDamagedDataVehicle(this.vehicleDetails.vehicle_id);
+      this.SuccessfilImageUpload = await this.util.uploadFileFordamagae(this.base64Image,'set-vehicle-pictures.php',this.vehicleDetails.vehicle_id,this.notes,this.seletedDamage.damagedArea);
+         if(this.SuccessfilImageUpload){
+           this.getDamagedDataVehicle(this.vehicleDetails.vehicle_id);
+         }
+         // this.gotophotoStep1(this.vehicleDetails);
+     }else{
+       this.storage.getObject('damageData').then((res)=>{
+         this.ifalreadyHave=res ? res : [];
+       })
+       // this.ifalreadyHave=JSON.parse(localStorage.getItem("damageData")) ? JSON.parse(localStorage.getItem("damageData")) : [];
+        console.log(this.ifalreadyHave);
+        if(this.ifalreadyHave.length > 0){
+         this.damagaOfflineArray=this.ifalreadyHave;
+         console.log("here");
         }
-        // this.gotophotoStep1(this.vehicleDetails);
-    }else{
-       this.ifalreadyHave=JSON.parse(localStorage.getItem("damageData")) ? JSON.parse(localStorage.getItem("damageData")) : [];
-       console.log(this.ifalreadyHave);
-       if(this.ifalreadyHave.length > 0){
-        this.damagaOfflineArray=this.ifalreadyHave;
-        console.log("here");
-       }
-        let damageData={
-          "damage":this.seletedDamage.damagedArea,
-          "base64Image":this.base64Image ? this.base64Image : "",
-          "vehicle_id": this.vehicleDetails.vehicle_id
-        }
-        this.damagaOfflineArray.push(damageData);
-        localStorage.setItem("damageData",JSON.stringify(this.damagaOfflineArray));
-        this.util.toast("Saved");
-        this.gotophotoStep1(this.vehicleDetails);
-
-    }
+         let damageData={
+           "damage":this.seletedDamage.damagedArea,
+           "base64Image":this.base64Image ? this.base64Image : "",
+           "vehicle_id": this.vehicleDetails.vehicle_id,
+           "comment":this.notes ? this.notes : ""
+         }
+         this.damagaOfflineArray.push(damageData);
+         this.storage.setObject('damageData',this.damagaOfflineArray).then((res)=>{
+           //saved
+         })
+         //localStorage.setItem("damageData",JSON.stringify(this.damagaOfflineArray));
+         this.util.toast("Your data has been saved");
+         // this.gotophotoStep1(this.vehicleDetails);
+ 
+     }
+   }else{
+    this.util.toast("Please upload picture");
+   }
   }
 
 

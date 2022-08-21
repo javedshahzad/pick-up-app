@@ -20,7 +20,7 @@ export class NetworkService {
           this.isConnctedNetwork=false;
           setTimeout(() => {
           this.util.toast('Network disconnected');
-          }, 3000);
+          }, 1000);
           console.log(res,'Network disconnected!');
           });
           // watch network for a connection
@@ -34,7 +34,7 @@ export class NetworkService {
           console.log('We got a connection, woohoo!');
           this.isConnctedNetwork=true;
           this.util.toast("Network connected");
-          }, 3000);
+          }, 1000);
           });
           this.network.onChange().subscribe((channge:any)=>{
           console.log(channge)

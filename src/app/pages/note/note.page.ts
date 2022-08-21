@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
+import { NetworkService } from 'src/app/services/network.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -12,12 +14,16 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class NotePage implements OnInit {
   vehicleDetails: any;
   GetNotesVehicle: any;
+  vehicleForOffline: any;
+  vehcileArray: any=[];
 
   constructor(
     private api:ApiService,
     private util:UtilsService,
     private active:ActivatedRoute,
-    private nav:NavController
+    private nav:NavController,
+    private storage:StorageService,
+    private network:NetworkService
   ) { 
     this.active.queryParams.subscribe((res:any)=>{
       console.log(res.data);
@@ -33,10 +39,29 @@ export class NotePage implements OnInit {
   }
   getvehicleNotes(id){
     console.log(id)
-    this.api.getNotes(id).subscribe((res:any)=>{
-      console.log(res);
-      this.GetNotesVehicle=res;
-    })
+    if(this.network.isConnctedNetwork){
+      this.api.getNotes(id).subscribe((res:any)=>{
+        console.log(res);
+        if(res){
+          this.GetNotesVehicle=res;
+          this.vehicleForOffline=res;
+          this.vehicleForOffline.vehicle_id=id;
+          this.vehcileArray.push(this.vehicleForOffline)
+          this.storage.setObject("vehicleNotesOffline",this.vehcileArray).then((res)=>{
+    
+          })
+        }
+      })
+    }else{
+      this.storage.getObject('vehicleNotesOffline').then((res)=>{
+        console.log(res);
+        if(res){
+          let arrdata=res;
+        let x =arrdata.filter((a)=>a.vehicle_id === id);
+         this.GetNotesVehicle=x[0];
+        }
+      })
+    }
   }
   editNote(){
     this.nav.navigateForward("/note-save",{queryParams:{vehicleDetails:this.vehicleDetails,GetNotesVehicle:this.GetNotesVehicle}})

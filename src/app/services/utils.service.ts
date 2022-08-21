@@ -67,7 +67,7 @@ export class UtilsService {
         fileTransfer.upload(this.base64Image,this.baseUrl+url+"?driver_id="+this.userData?.driver_id+"&token="+this.userData?.token+"&vehicle_id="+vehcileId, options)
         .then((data) => {
         console.log(JSON.stringify(data)+" Uploaded Successfully");
-        this.toast("Saved");
+        this.toast("Your data has been saved");
         loading.dismiss();
         return true;
         }, (err) => {
@@ -99,7 +99,7 @@ export class UtilsService {
         fileTransfer.upload(this.base64Image,this.baseUrl+url+"?driver_id="+this.userData?.driver_id+"&token="+this.userData?.token+"&vehicle_id="+vehcileId, options)
         .then((data) => {
         console.log(JSON.stringify(data)+" Uploaded Successfully");
-        this.toast("Saved");
+        this.toast("Your data has been saved");
         loading.dismiss();
         return true;
         }, (err) => {

@@ -4,6 +4,7 @@ import { Camera,CameraOptions } from '@ionic-native/camera/ngx';
 import { ActionSheetController, NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 import { NetworkService } from 'src/app/services/network.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 
@@ -30,13 +31,19 @@ export class NoteSavePage implements OnInit {
     private nav:NavController,
     private actionSheetCtrl: ActionSheetController,
     private camera: Camera,
-    private network:NetworkService
+    private network:NetworkService,
+    private storage:StorageService
 
   ) { 
     this.active.queryParams.subscribe((res:any)=>{
       console.log(res.vehicleDetails);
       this.vehicleDetails=res.vehicleDetails;
-      this.getvehicleNotes(this.vehicleDetails.vehicle_id);
+      if(this.network.isConnctedNetwork){
+        this.getvehicleNotes(this.vehicleDetails.vehicle_id);
+      }else{
+        this.GetNotesVehicle=res.GetNotesVehicle;
+        this.notes=this.GetNotesVehicle?.note;
+      }
     })
   }
 
@@ -47,7 +54,7 @@ export class NoteSavePage implements OnInit {
     this.api.getNotes(id).subscribe((res:any)=>{
       console.log(res);
       this.GetNotesVehicle=res;
-      this.notes=this.GetNotesVehicle.note;
+      this.notes=this.GetNotesVehicle?.note;
     })
   }
   showPreviewImage(event: any) {
@@ -120,7 +127,9 @@ export class NoteSavePage implements OnInit {
    async saveNotes(){
       this.network.watchNetwork();
       console.log(this.network.isConnctedNetwork);
-      if(this.network.isConnctedNetwork){
+     
+      if(this.base64Image){
+        if(this.network.isConnctedNetwork){
           //set note pic
           this.ImageUploadedSuccess =await this.util.uploadFile(this.base64Image,'set-note-pictures.php',this.vehicleDetails.vehicle_id);
           // set notes 
@@ -139,7 +148,10 @@ export class NoteSavePage implements OnInit {
             // this.gotoNote(this.vehicleDetails);
           }
       }else{
-           this.ifalreadyHave=JSON.parse(localStorage.getItem("notesData")) ? JSON.parse(localStorage.getItem("notesData")) : [];
+          this.storage.getObject('notesData').then((res)=>{
+            this.ifalreadyHave= res ? res : [];
+          })
+          // this.ifalreadyHave=JSON.parse(localStorage.getItem("notesData")) ? JSON.parse(localStorage.getItem("notesData")) : [];
            if(this.ifalreadyHave.length > 0){
             this.notesSaveOffline= this.ifalreadyHave
            }
@@ -151,10 +163,16 @@ export class NoteSavePage implements OnInit {
             }
 
             this.notesSaveOffline.push(damageData);
-            localStorage.setItem("notesData",JSON.stringify(this.notesSaveOffline));
-            this.util.toast("Saved");
-            this.gotoNote(this.vehicleDetails);
+            this.storage.setObject('notesData',this.notesSaveOffline).then((res)=>{
+              //saved
+            });
+            // localStorage.setItem("notesData",JSON.stringify(this.notesSaveOffline));
+            this.util.toast("Your data has been saved");
+            //this.gotoNote(this.vehicleDetails);
     
+      }   
+      }else{
+        this.util.toast("Please upload picture");
       }
       
     }

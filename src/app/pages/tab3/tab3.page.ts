@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 import { NetworkService } from 'src/app/services/network.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -17,13 +18,16 @@ export class Tab3Page implements OnInit {
     private api:ApiService,
     private util:UtilsService,
     private nav : NavController,
-    private network:NetworkService
+    private network:NetworkService,
+    private storage:StorageService
   ) {}
   ngOnInit(): void {
    if(this.network.isConnctedNetwork){
     this.getTomorrowListings();
   }else{
-    this.tomorrowListings=JSON.parse(localStorage.getItem('tomorrowListings'));
+    this.storage.getObject('tomorrowListings').then((res)=>{
+      this.tomorrowListings=res;
+    });
   }
   }
   getTomorrowListings(){
@@ -32,7 +36,10 @@ export class Tab3Page implements OnInit {
       if(res){
         this.tomorrowListings=res;
         this.searchArray=res;
-        localStorage.setItem('tomorrowListings',JSON.stringify(this.tomorrowListings));
+        this.storage.setObject('tomorrowListings',this.tomorrowListings).then((res)=>{
+                  
+        });;
+        //localStorage.setItem('tomorrowListings',JSON.stringify(this.tomorrowListings));
       }
      
     })
