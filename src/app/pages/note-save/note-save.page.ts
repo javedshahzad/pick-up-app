@@ -129,7 +129,7 @@ export class NoteSavePage implements OnInit {
       console.log(this.network.isConnctedNetwork);
      
       if(this.base64Image){
-        if(this.network.isConnctedNetwork){
+        if(this.network.isConnctedNetwork && this.network.checkNetworkType() === 'wifi' || this.network.checkNetworkType() === '4g'){
           //set note pic
           this.ImageUploadedSuccess =await this.util.uploadFile(this.base64Image,'set-note-pictures.php',this.vehicleDetails.vehicle_id);
           // set notes 

@@ -32,6 +32,7 @@ export class Tab2Page implements OnInit {
   BringBackLength:any=0;
   BringBackChecks:any=1;
   BringBackSyncData: any='';
+  myDriverID: any="";
 
   constructor(
     private api:ApiService,
@@ -46,7 +47,8 @@ export class Tab2Page implements OnInit {
     this.api.setDriver();
     this.GetAndSetListings();
     this.watchNetworks();
-   
+    this.userData=JSON.parse(localStorage.getItem("userData"));
+    this.myDriverID=this.userData?.driver_id ? this.userData?.driver_id : "";
   }
   GetAndSetListings(){
     if(this.network.isConnctedNetwork){
@@ -82,12 +84,7 @@ export class Tab2Page implements OnInit {
           "way":"pick_up",
           "vehicle_id":item.vehicle_id,
           "action":"set"
-        },
-          {
-            "way":"bring_back",
-            "vehicle_id":item.vehicle_id,
-            "action":"unset"
-            },
+        }
       ]
         var strigifydata=JSON.stringify(data);
           this.api.pickupAndBringBack(strigifydata).subscribe((res:any)=>{
@@ -107,41 +104,14 @@ export class Tab2Page implements OnInit {
           this.PickupSaveOffline.push(item);
           this.storage.setObject('PickupOffline',this.PickupSaveOffline).then((res)=>{
             //saved
-            console.log(res,"Pickup dataaaaaaaa")
-            this.updatedArrayForPIckup(item);
+            console.log(res,"Pickup dataaaaaaaa");
+            this.userData=JSON.parse(localStorage.getItem("userData"));
+            this.updatedArrayPickup(item,this.userData?.driver_id,"ADU");
             this.util.toast("Vehicle has been pickup");
           });
       
       }
 
-    }
-
-    updatedArrayForPIckup(item){
-      this.userData=JSON.parse(localStorage.getItem("userData"));
-        //find the index of object from array that you want to update
-        const objIndex = this.todayListings.findIndex(obj => obj.vehicle_id === item.vehicle_id);
-
-        // Make sure to avoid incorrect replacement
-        // When specific item is not found
-        if (objIndex === -1) {
-        return;
-        }
-
-        // make new object of updated object.   
-        const updatedObj = { ...this.todayListings[objIndex], driver_id_pick_up: this.userData?.driver_id,driver_trigram_pick_up: "ADU"};
-
-        // make final new array of objects by combining updated object.
-        const UpdatedListings = [
-        ...this.todayListings.slice(0, objIndex),
-        updatedObj,
-        ...this.todayListings.slice(objIndex + 1),
-        ];
-
-        console.log("original data=", this.todayListings);
-        console.log("updated data=", UpdatedListings);
-        this.storage.setObject('todayListings',UpdatedListings).then((res)=>{
-          this.GetAndSetListings();
-        });
     }
     bringBack(item){
       if(this.network.isConnctedNetwork){
@@ -149,13 +119,8 @@ export class Tab2Page implements OnInit {
           {
           "way":"bring_back",
           "vehicle_id":item.vehicle_id,
-          "action":"unset"
-          },
-          {
-            "way":"pick_up",
-            "vehicle_id":item.vehicle_id,
-            "action":"unset"
-           }
+          "action":"set"
+          }
         ];
         var strigifydata=JSON.stringify(data);
         this.api.pickupAndBringBack(strigifydata).subscribe((res:any)=>{
@@ -178,25 +143,51 @@ export class Tab2Page implements OnInit {
             this.storage.getObject('BringBackOffline').then((back)=>{
               console.log(back);
             })
-            console.log(res,"Bring back")
-            this.updatedArrayForBringBack(item);
+            console.log(res,"Bring back");
+            this.updatedArrayBringBack(item,this.userData?.driver_id,"ADU");
             this.util.toast("Vehicle has been back");
           });
       }
     }
-    updatedArrayForBringBack(item){
-      this.userData=JSON.parse(localStorage.getItem("userData"));
+    updatedArrayPickup(item,driverIdPickup,driverPickupTrigram){
+    
+      //find the index of object from array that you want to update
+      const objIndex = this.todayListings.findIndex(obj => obj.vehicle_id === item.vehicle_id);
+      // When specific item is not found
+      if (objIndex === -1) {
+      return;
+      }
+
+      // adding pickup driver id AND trigram 
+      const updatedObj = { ...this.todayListings[objIndex],
+        driver_id_pick_up: driverIdPickup,
+        driver_trigram_pick_up: driverPickupTrigram,
+      };
+      // make final new array of objects by combining updated object.
+      const UpdatedListings = [
+      ...this.todayListings.slice(0, objIndex),
+      updatedObj,
+      ...this.todayListings.slice(objIndex + 1),
+      ];
+
+      console.log("original data=", this.todayListings);
+      console.log("updated data=", UpdatedListings);
+      this.storage.setObject('todayListings',UpdatedListings).then((res)=>{
+        this.GetAndSetListings();
+      });
+  }
+    updatedArrayBringBack(item,bringbackId,bringbackTrigram){
         //find the index of object from array that you want to update
         const objIndex = this.todayListings.findIndex(obj => obj.vehicle_id === item.vehicle_id);
-
-        // Make sure to avoid incorrect replacement
         // When specific item is not found
         if (objIndex === -1) {
         return;
         }
-
-        // make new object of updated object.   
-        const updatedObj = { ...this.todayListings[objIndex], driver_id_pick_up: "0",driver_trigram_pick_up: "***"};
+        // adding bring back driver id AND trigram  
+        const updatedObj = { ...this.todayListings[objIndex],
+          driver_id_bring_back:bringbackId,
+          driver_trigram_bring_back:bringbackTrigram
+        };
 
         // make final new array of objects by combining updated object.
         const UpdatedListings = [
@@ -212,18 +203,13 @@ export class Tab2Page implements OnInit {
         });
     }
 
-    againUnset(item){
+    UnsetIfWrongPickup(item){
       if(this.network.isConnctedNetwork){
         let data=[{
           "way":"pick_up",
           "vehicle_id":item.vehicle_id,
           "action":"unset"
-        },
-          {
-            "way":"bring_back",
-            "vehicle_id":item.vehicle_id,
-            "action":"unset"
-            },
+        }
       ]
         var strigifydata=JSON.stringify(data);
           this.api.pickupAndBringBack(strigifydata).subscribe((res:any)=>{
@@ -234,7 +220,27 @@ export class Tab2Page implements OnInit {
             }
           })
       }else{
-        this.bringBack(item);
+        this.updatedArrayPickup(item,"0","");
+      }
+    }
+    wrongBringBack(item){
+      if(this.network.isConnctedNetwork){
+        let data=[{
+          "way":"bring_back",
+          "vehicle_id":item.vehicle_id,
+          "action":"unset"
+        }
+      ]
+        var strigifydata=JSON.stringify(data);
+          this.api.pickupAndBringBack(strigifydata).subscribe((res:any)=>{
+            console.log(res);
+            if(res){
+              this.util.toast("Vehicle unsetd");
+              this.getTodayListings();
+            }
+          })
+      }else{
+        this.updatedArrayBringBack(item,"0","");
       }
     }
     ckeckUp(item){
@@ -302,12 +308,7 @@ export class Tab2Page implements OnInit {
         "way":"pick_up",
         "vehicle_id":item?.vehicle_id,
         "action":"set"
-      },
-        {
-          "way":"bring_back",
-          "vehicle_id":item?.vehicle_id,
-          "action":"unset"
-          },
+      }
     ]
       var strigifydata=JSON.stringify(data);
         this.api.pickupAndBringBack(strigifydata).subscribe((res:any)=>{
@@ -356,13 +357,8 @@ UploadToServerBringBack(item){
     {
     "way":"bring_back",
     "vehicle_id":item?.vehicle_id,
-    "action":"unset"
+    "action":"set"
     },
-    {
-      "way":"pick_up",
-      "vehicle_id":item?.vehicle_id,
-      "action":"unset"
-     }
   ];
   var strigifydata=JSON.stringify(data);
     this.api.pickupAndBringBack(strigifydata).subscribe((res:any)=>{

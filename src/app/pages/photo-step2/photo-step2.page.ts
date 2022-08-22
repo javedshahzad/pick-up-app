@@ -76,7 +76,7 @@ export class PhotoStep2Page implements OnInit {
  async save(){
     console.log(this.network.isConnctedNetwork);
    if(this.base64Image){
-    if(this.network.isConnctedNetwork){
+    if(this.network.isConnctedNetwork && this.network.checkNetworkType() === 'wifi' || this.network.checkNetworkType() === '4g'){
       this.SuccessfilImageUpload = await this.util.uploadFileFordamagae(this.base64Image,'set-vehicle-pictures.php',this.vehicleDetails.vehicle_id,this.notes,this.seletedDamage.damagedArea);
          if(this.SuccessfilImageUpload){
            this.getDamagedDataVehicle(this.vehicleDetails.vehicle_id);
