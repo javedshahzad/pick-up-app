@@ -119,6 +119,9 @@ export class Tab2Page implements OnInit {
       this.storage.setObject('OfflineActions', this.OfflineActions).then((res) => {
           //saved
           console.log(res);
+          this.storage.getObject('OfflineActions').then((res)=>{
+            console.log(res);
+          });
       });
   };
   bringBack(item) {

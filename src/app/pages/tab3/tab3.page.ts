@@ -130,6 +130,9 @@ export class Tab3Page implements OnInit {
       this.storage.setObject('OfflineActionTommorow', this.OfflineActionTommorow).then((res) => {
           //saved
           console.log(res);
+          this.storage.getObject('OfflineActionTommorow').then((res)=>{
+            console.log(res);
+          });
       });
   };
   bringBack(item) {
