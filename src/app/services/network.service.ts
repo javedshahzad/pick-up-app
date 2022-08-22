@@ -6,7 +6,7 @@ import { UtilsService } from './utils.service';
   providedIn: 'root'
 })
 export class NetworkService {
-  isConnctedNetwork:boolean=false;
+  isConnctedNetwork:boolean=navigator.onLine;
   constructor(
     private network: Network,
     private util:UtilsService
