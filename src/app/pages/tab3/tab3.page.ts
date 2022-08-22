@@ -33,7 +33,7 @@ export class Tab3Page implements OnInit {
   userData: any = '';
   myDriverID: any = '';
   ifalreadyHave: any = [];
-  OfflineActions: any = [];
+  OfflineActionTommorow: any = [];
   offlineDataArray: any = [];
   constructor(
       private api: ApiService,
@@ -111,23 +111,23 @@ export class Tab3Page implements OnInit {
               "vehicle_id": item.vehicle_id,
               "action": "set"
           };
-          this.StoreOfflineActions(data);
+          this.StoreOfflineActionTommorow(data);
           this.userData = JSON.parse(localStorage.getItem("userData"));
           this.UpdatedArray(item, this.userData?.driver_id, "ADU", "pickup");
           this.util.toast("Vehicle has been pickup");
       }
 
   }
-  StoreOfflineActions(data) {
-      this.storage.getObject('OfflineActions').then((res) => {
+  StoreOfflineActionTommorow(data) {
+      this.storage.getObject('OfflineActionTommorow').then((res) => {
           this.ifalreadyHave = res ? res : [];
       });
       if (this.ifalreadyHave.length > 0) {
-          this.OfflineActions = this.ifalreadyHave
+          this.OfflineActionTommorow = this.ifalreadyHave
       }
 
-      this.OfflineActions.push(data);
-      this.storage.setObject('OfflineActions', this.OfflineActions).then((res) => {
+      this.OfflineActionTommorow.push(data);
+      this.storage.setObject('OfflineActionTommorow', this.OfflineActionTommorow).then((res) => {
           //saved
           console.log(res);
       });
@@ -153,7 +153,7 @@ export class Tab3Page implements OnInit {
               "vehicle_id": item.vehicle_id,
               "action": "set"
           };
-          this.StoreOfflineActions(data);
+          this.StoreOfflineActionTommorow(data);
           this.UpdatedArray(item, this.userData?.driver_id, "ADU", "back");
           this.util.toast("Vehicle has been back");
 
@@ -217,7 +217,7 @@ export class Tab3Page implements OnInit {
               "vehicle_id": item.vehicle_id,
               "action": "unset"
           };
-          this.StoreOfflineActions(data);
+          this.StoreOfflineActionTommorow(data);
           this.UpdatedArray(item, "0", "", "pickup");
       }
   }
@@ -242,7 +242,7 @@ export class Tab3Page implements OnInit {
               "vehicle_id": item.vehicle_id,
               "action": "unset"
           };
-          this.StoreOfflineActions(data);
+          this.StoreOfflineActionTommorow(data);
           this.UpdatedArray(item, "0", "", "back");
       }
   }
@@ -282,7 +282,7 @@ export class Tab3Page implements OnInit {
       });
   }
   UploadToServer() {
-      this.storage.getObject('OfflineActions').then((res) => {
+      this.storage.getObject('OfflineActionTommorow').then((res) => {
           console.log(res);
           this.offlineDataArray = res ? res : [];
           if (this.offlineDataArray.length > 0) {
@@ -292,7 +292,7 @@ export class Tab3Page implements OnInit {
                   console.log(res);
                   if (res) {
                       console.log(res);
-                      this.storage.remove('OfflineActions');
+                      this.storage.remove('OfflineActionTommorow');
                       this.getTomorwoLists()
                   }
               });
