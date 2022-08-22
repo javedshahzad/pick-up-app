@@ -15,12 +15,19 @@ ion-row{
 .border{
     border-bottom: 2px solid #eeeeee;
 }
+ion-col{
+    background: #fff;
+}
+ion-item{
+    --background: #fff;
+}
 .title{
     width: 100%;
 }
 .title p{
     font-size: 15px;
     font-weight: 600;
+    color: black;
 }
 .margin{
     margin-left: 10px;

@@ -102,7 +102,7 @@ export class Tab2Page implements OnInit {
           };
           this.StoreOfflineActions(data);
           this.userData = JSON.parse(localStorage.getItem("userData"));
-          this.updatedArrayPickup(item, this.userData?.driver_id, "ADU");
+          this.UpdatedArray(item, this.userData?.driver_id, "ADU","pickup");
           this.util.toast("Vehicle has been pickup");
       }
 
@@ -143,12 +143,12 @@ export class Tab2Page implements OnInit {
               "action": "set"
           };
           this.StoreOfflineActions(data);
-          this.updatedArrayBringBack(item, this.userData?.driver_id, "ADU");
+          this.UpdatedArray(item, this.userData?.driver_id, "ADU","back");
           this.util.toast("Vehicle has been back");
 
       }
   }
-  updatedArrayPickup(item, driverIdPickup, driverPickupTrigram) {
+  UpdatedArray(item, driverId, Trigram,type) {
 
       //find the index of object from array that you want to update
       const objIndex = this.todayListings.findIndex(obj => obj.vehicle_id === item.vehicle_id);
@@ -158,38 +158,20 @@ export class Tab2Page implements OnInit {
       }
 
       // adding pickup driver id AND trigram 
-      const updatedObj = {
-          ...this.todayListings[objIndex],
-          driver_id_pick_up: driverIdPickup,
-          driver_trigram_pick_up: driverPickupTrigram,
-      };
-      // make final new array of objects by combining updated object.
-      const UpdatedListings = [
-          ...this.todayListings.slice(0, objIndex),
-          updatedObj,
-          ...this.todayListings.slice(objIndex + 1),
-      ];
-
-      console.log("original data=", this.todayListings);
-      console.log("updated data=", UpdatedListings);
-      this.storage.setObject('todayListings', UpdatedListings).then((res) => {
-          this.GetAndSetListings();
-      });
-  }
-  updatedArrayBringBack(item, bringbackId, bringbackTrigram) {
-      //find the index of object from array that you want to update
-      const objIndex = this.todayListings.findIndex(obj => obj.vehicle_id === item.vehicle_id);
-      // When specific item is not found
-      if (objIndex === -1) {
-          return;
+      if(type === "pickup"){
+        var updatedObj = {
+            ...this.todayListings[objIndex],
+            driver_id_pick_up: driverId,
+            driver_trigram_pick_up: Trigram,
+        };
       }
-      // adding bring back driver id AND trigram  
-      const updatedObj = {
-          ...this.todayListings[objIndex],
-          driver_id_bring_back: bringbackId,
-          driver_trigram_bring_back: bringbackTrigram
-      };
-
+      if(type === "back"){
+        var updatedObj = {
+            ...this.todayListings[objIndex],
+            driver_id_bring_back: driverId,
+            driver_trigram_bring_back: Trigram
+        };
+      }
       // make final new array of objects by combining updated object.
       const UpdatedListings = [
           ...this.todayListings.slice(0, objIndex),
@@ -225,7 +207,7 @@ export class Tab2Page implements OnInit {
               "action": "unset"
           };
           this.StoreOfflineActions(data);
-          this.updatedArrayPickup(item, "0", "");
+          this.UpdatedArray(item, "0", "","pickup");
       }
   }
   wrongBringBack(item) {
@@ -250,7 +232,7 @@ export class Tab2Page implements OnInit {
               "action": "unset"
           };
           this.StoreOfflineActions(data);
-          this.updatedArrayBringBack(item, "0", "");
+          this.UpdatedArray(item, "0", "","back");
       }
   }
   ckeckUp(item) {

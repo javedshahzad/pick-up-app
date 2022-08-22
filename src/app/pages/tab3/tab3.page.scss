@@ -21,6 +21,13 @@ ion-row{
 .title p{
     font-size: 15px;
     font-weight: 600;
+    color: black;
+}
+ion-col{
+    background: #fff;
+}
+ion-item{
+    --background: #fff;
 }
 .margin{
     margin-left: 10px;
