@@ -131,6 +131,9 @@ export class Tab1Page implements OnInit {
       this.storage.setObject('offlineActionYesterDay', this.offlineActionYesterDay).then((res) => {
           //saved
           console.log(res);
+          this.storage.getObject('offlineActionYesterDay').then((res)=>{
+            console.log(res);
+          });
       });
   };
   bringBack(item) {
