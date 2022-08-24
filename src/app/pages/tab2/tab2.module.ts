@@ -6,7 +6,8 @@ import { Tab2Page } from './tab2.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
-import { PendingsPage } from '../pendings/pendings.page';
+import { GetVehicleListingsPage } from '../get-vehicle-listings/get-vehicle-listings.page';
+
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { PendingsPage } from '../pendings/pendings.page';
     ExploreContainerComponentModule,
     Tab2PageRoutingModule
   ],
-  declarations: [Tab2Page,PendingsPage]
+  declarations: [Tab2Page,GetVehicleListingsPage]
 })
 export class Tab2PageModule {}

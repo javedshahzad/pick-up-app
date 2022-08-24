@@ -42,6 +42,10 @@ const routes: Routes = [
   {
     path: 'damaged-car',
     loadChildren: () => import('./pages/damaged-car/damaged-car.module').then( m => m.DamagedCarPageModule)
+  },
+  {
+    path: 'get-vehicle-listings',
+    loadChildren: () => import('./pages/get-vehicle-listings/get-vehicle-listings.module').then( m => m.GetVehicleListingsPageModule)
   }
 ];
 
