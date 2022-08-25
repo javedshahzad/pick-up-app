@@ -24,10 +24,10 @@
             </ion-col>
             <ion-col size="4" class="ion-no-padding">
                 <ion-item lines="none" class="ion-no-padding">
-                  <ion-button *ngIf="item.driver_id_pick_up ==='0'" (click)="pickup(item)" color="warning" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
-                  <ion-button [disabled]="item.driver_id_pick_up !== myDriverID" (click)="UnsetIfWrongPickup(item)" *ngIf="item.driver_id_pick_up !='0'" color="light"  class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon>{{item.driver_trigram_pick_up}}</ion-button>
-                  <ion-button *ngIf="item?.driver_id_bring_back === '0' " color="success" (click)="bringBack(item)" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>        
-                  <ion-button (click)="wrongBringBack(item)" [disabled]="item.driver_id_bring_back !== myDriverID"  *ngIf="item.driver_id_bring_back !='0'" color="light"  class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon>{{item.driver_trigram_bring_back}}</ion-button>
+                  <ion-button *ngIf="item.driver_id_pick_up ==='0'" (click)="PickupBringbackActions(item,'pick_up','set')" color="warning" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon></ion-button>
+                  <ion-button [disabled]="item.driver_id_pick_up !== myDriverID" (click)="PickupBringbackActions(item,'pick_up','unset')" *ngIf="item.driver_id_pick_up !='0'" color="light"  class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-back-outline"></ion-icon>{{item.driver_trigram_pick_up}}</ion-button>
+                  <ion-button *ngIf="item?.driver_id_bring_back === '0' " color="success" (click)="PickupBringbackActions(item,'bring_back','set')" class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon></ion-button>        
+                  <ion-button (click)="PickupBringbackActions(item,'bring_back','unset')" [disabled]="item.driver_id_bring_back !== myDriverID"  *ngIf="item.driver_id_bring_back !='0'" color="light"  class="custom-style-btn shadow-none ion-no-padding"><ion-icon name="chevron-forward-outline"></ion-icon>{{item.driver_trigram_bring_back}}</ion-button>
                 </ion-item>
             </ion-col>
             <ion-col size="5"  class="ion-no-padding">

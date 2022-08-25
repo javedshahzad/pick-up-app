@@ -209,8 +209,8 @@ export class PendingsPage implements OnInit {
   }
 
   RemoveUploadedItemForNotes(id) {
-      this.DamageData.splice(0, 1);
-      this.storage.setObject('damageData', this.DamageData).then((res) => {
+      this.NotesData.splice(0, 1);
+      this.storage.setObject('notesData', this.NotesData).then((res) => {
           //saved updated
           this.storage.getObject('notesData').then((res) => {
               this.NotesData = res ? res : [];
