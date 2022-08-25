@@ -45,6 +45,7 @@ export class CheckupPage implements OnInit {
           console.log(res.data);
           this.vehicleDetails = res.data;
           this.getcheckups(this.vehicleDetails.vehicle_id);
+          this.watchNetworks()
       })
   }
 
