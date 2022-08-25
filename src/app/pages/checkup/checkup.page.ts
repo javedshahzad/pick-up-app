@@ -49,7 +49,7 @@ export class CheckupPage implements OnInit {
   }
 
   ngOnInit() {
-      this.watchNetworks()
+    
   }
   getcheckups(id) {
       if (this.network.isConnctedNetwork) {
@@ -70,6 +70,8 @@ export class CheckupPage implements OnInit {
           let arrdata = this.OfflineArray;
           let x = arrdata.filter((a) => a.vehicle_id === data.vehicle_id);
           if (x.length > 0) {
+            this.checkedstatus=x[0];
+            this.UpdatedArray(this.checkedstatus);
               console.log("have already")
           } else {
               this.OfflineArray.push(data);
@@ -133,6 +135,7 @@ export class CheckupPage implements OnInit {
           this.api.setCheckup(this.vehicleDetails.vehicle_id, jsondata).subscribe((res: any) => {
               console.log(res);
               if (res) {
+                  this.UpdatedArray(this.checkedstatus);
                   this.util.toast("Saved Checkup");
               }
           });
@@ -172,9 +175,8 @@ export class CheckupPage implements OnInit {
     this.storage.setObject("offlineChechup", UpdatedListings).then((res) => {
       console.log(res);
   });
-    setTimeout(() => {
-      this.getcheckups(this.vehicleDetails.vehicle_id);
-    }, 500);
+     
+
 }
   StoreOfflineCheckupsActions(data) {
       this.storage.getObject('OfflineCheckupsActions').then((res) => {
@@ -193,7 +195,7 @@ export class CheckupPage implements OnInit {
               }
           }
       }
-      setTimeout(() => {
+   
           this.OfflineCheckupsActions.push(data);
           this.storage.setObject('OfflineCheckupsActions', this.OfflineCheckupsActions).then((res) => {
               //saved
@@ -202,43 +204,45 @@ export class CheckupPage implements OnInit {
                   console.log(res);
               });
           });
-      }, 500);
+  
   }
 
-  uploadToserver() {
+  uploadCheckupsToServer() {
       this.storage.getObject('OfflineCheckupsActions').then((res) => {
-          console.log(res);
           this.arrayForUpload = res ? res : [];
-          if (this.arrayForUpload.length > 0) {
-              this.checkedstatus = this.arrayForUpload[0];
-              var jsondata = JSON.stringify(this.checkedstatus);
-              this.api.setCheckup(this.checkedstatus.vehicle_id, jsondata).subscribe((res: any) => {
-                  console.log(res);
-                  if (res) {
-                      this.RemoveUploadedItem();
-                  }
-              });
-          } else {
-              this.storage.remove("OfflineCheckupsActions");
-              console.log("Uploaded alll")
-          }
       });
+      console.log(this.arrayForUpload);
+      if (this.arrayForUpload.length > 0) {
+        this.checkedstatus = this.arrayForUpload[0];
+        var jsondata = JSON.stringify(this.checkedstatus);
+        this.api.setCheckup(this.checkedstatus.vehicle_id, jsondata).subscribe((res: any) => {
+            console.log(res);
+            if (res) {
+                this.RemoveUploadedItem();
+              
+            }
+        });
+    } else {
+        this.storage.remove("OfflineCheckupsActions");
+        console.log("Uploaded alll")
+    }
   }
   RemoveUploadedItem() {
       this.arrayForUpload.splice(0, 1);
+      console.log(this.arrayForUpload);
       this.storage.setObject('OfflineCheckupsActions', this.arrayForUpload).then((res) => {
-          this.uploadToserver();
       });
+      this.uploadCheckupsToServer();
   }
   watchNetworks() {
       // watch network for a connection
       this.WatchNetwork.onConnect().subscribe((net) => {
           console.log(net, 'network connected!');
           setTimeout(() => {
-              console.log('We got a connection, woohoo!');
+              console.log('From checkups!');
               this.network.isConnctedNetwork = true;
-              this.uploadToserver();
-          }, 1200);
+              this.uploadCheckupsToServer();
+          }, 800);
       });
   }
 }
