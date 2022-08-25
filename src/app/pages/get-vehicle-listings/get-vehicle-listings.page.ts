@@ -173,8 +173,6 @@ export class GetVehicleListingsPage implements OnInit {
             updatedObj,
             ...this.getAllListings.slice(objIndex + 1),
         ];
-
-        console.log("original data=", this.getAllListings);
         console.log("updated data=", UpdatedListings);
         this.storeDataInStorage(this.dayType, UpdatedListings);
         setTimeout(() => {

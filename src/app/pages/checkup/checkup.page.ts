@@ -168,8 +168,6 @@ export class CheckupPage implements OnInit {
         updatedObj,
         ...this.OfflineArray.slice(objIndex + 1),
     ];
-
-    console.log("original data=", this.OfflineArray);
     console.log("updated data=", UpdatedListings);
     this.storage.setObject("offlineChechup", UpdatedListings).then((res) => {
       console.log(res);
