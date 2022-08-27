@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
-import { StorageService } from 'src/app/services/storage.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -17,7 +16,6 @@ export class LoginPage implements OnInit {
     private api :ApiService,
     private nav : NavController,
     private util : UtilsService,
-    private storage:StorageService
   ) { }
 
   ngOnInit() {
@@ -38,6 +36,8 @@ export class LoginPage implements OnInit {
       this.api.setDriver();
       this.nav.navigateForward("tabs");
 
+     }else{
+      this.util.toast("Login error. Please check your number");
      }
     },error =>{
       this.util.hideLoader();

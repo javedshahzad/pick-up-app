@@ -42,7 +42,6 @@ export class CheckupPage implements OnInit {
       private WatchNetwork: Network,
   ) {
       this.active.queryParams.subscribe((res: any) => {
-          console.log(res.data);
           this.vehicleDetails = res.data;
           this.getcheckups(this.vehicleDetails.vehicle_id);
           this.watchNetworks()
@@ -54,9 +53,7 @@ export class CheckupPage implements OnInit {
   }
   getcheckups(id) {
       if (this.network.isConnctedNetwork) {
-          console.log(id)
           this.api.getCheckup(id).subscribe((res: any) => {
-              console.log(res);
               this.checkedstatus = res;
               this.checkedstatus.vehicle_id = id;
               this.storeOfflineData(this.checkedstatus)
@@ -73,22 +70,19 @@ export class CheckupPage implements OnInit {
           if (x.length > 0) {
             this.checkedstatus=x[0];
             this.UpdatedArray(this.checkedstatus);
-              console.log("have already")
           } else {
               this.OfflineArray.push(data);
               this.storage.setObject("offlineChechup", this.OfflineArray).then((res) => {
-                  console.log(res);
+                  
               });
           }
       });
   }
   GetOfflineCheckupData(id) {
       this.storage.getObject("offlineChechup").then((res) => {
-          console.log(res);
           this.OfflineArray = res ? res : [];
           let arrdata = this.OfflineArray;
           let x = arrdata.filter((a) => a.vehicle_id === id);
-          console.log(x);
           if (x.length > 0) {
               this.checkedstatus = x[0];
           }
@@ -130,11 +124,9 @@ export class CheckupPage implements OnInit {
       }
   }
   savecheckup() {
-      console.log(this.checkedstatus);
       if (this.network.isConnctedNetwork) {
           var jsondata = JSON.stringify(this.checkedstatus);
           this.api.setCheckup(this.vehicleDetails.vehicle_id, jsondata).subscribe((res: any) => {
-              console.log(res);
               if (res) {
                   this.UpdatedArray(this.checkedstatus);
                   this.util.toast("Saved Checkup");
@@ -148,15 +140,11 @@ export class CheckupPage implements OnInit {
   }
 
   UpdatedArray(item) {
-    //find the index of object from array that you want to update
     const objIndex = this.OfflineArray.findIndex(obj => obj.vehicle_id === item.vehicle_id);
-    // When specific item is not found
     if (objIndex === -1) {
         return;
     }
-
-    // adding pickup driver id AND trigram 
-  
+    // update array object 
         var updatedObj = {
             ...this.OfflineArray[objIndex],
             clean_vehicle: item.clean_vehicle,
@@ -172,16 +160,14 @@ export class CheckupPage implements OnInit {
         updatedObj,
         ...this.OfflineArray.slice(objIndex + 1),
     ];
-    console.log("updated data=", UpdatedListings);
     this.storage.setObject("offlineChechup", UpdatedListings).then((res) => {
-      console.log(res);
+      
   });
      
 
 }
   StoreOfflineCheckupsActions(data) {
       this.storage.getObject('OfflineCheckupsActions').then((res) => {
-          console.log(res);
           this.ifAlreadyCheckups = res ? res : [];
       });
       if (this.ifAlreadyCheckups.length > 0) {
@@ -202,7 +188,6 @@ export class CheckupPage implements OnInit {
               //saved
               this.util.toast("Saved Checkup");
               this.storage.getObject('OfflineCheckupsActions').then((res) => {
-                  console.log(res);
               });
           });
   
@@ -212,12 +197,10 @@ export class CheckupPage implements OnInit {
       this.storage.getObject('OfflineCheckupsActions').then((res) => {
           this.arrayForUpload = res ? res : [];
       });
-      console.log(this.arrayForUpload);
       if (this.arrayForUpload.length > 0) {
         this.checkedstatus = this.arrayForUpload[0];
         var jsondata = JSON.stringify(this.checkedstatus);
         this.api.setCheckup(this.checkedstatus.vehicle_id, jsondata).subscribe((res: any) => {
-            console.log(res);
             if (res) {
                 this.RemoveUploadedItem();
               
@@ -225,12 +208,10 @@ export class CheckupPage implements OnInit {
         });
     } else {
         this.storage.remove("OfflineCheckupsActions");
-        console.log("Uploaded alll")
     }
   }
   RemoveUploadedItem() {
       this.arrayForUpload.splice(0, 1);
-      console.log(this.arrayForUpload);
       this.storage.setObject('OfflineCheckupsActions', this.arrayForUpload).then((res) => {
       });
       this.uploadCheckupsToServer();
@@ -238,9 +219,7 @@ export class CheckupPage implements OnInit {
   watchNetworks() {
       // watch network for a connection
       this.WatchNetwork.onConnect().subscribe((net) => {
-          console.log(net, 'network connected!');
           setTimeout(() => {
-              console.log('From checkups!');
               this.network.isConnctedNetwork = true;
               this.uploadCheckupsToServer();
           }, 800);

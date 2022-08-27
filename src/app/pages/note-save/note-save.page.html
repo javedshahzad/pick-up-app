@@ -18,12 +18,6 @@
       <textarea class="para" cols="46" rows="10" [(ngModel)]="notes"></textarea>
 
       <ion-button color="dark" (click)="presentActionSheet()" expand="block" class="ion-text-capitalize"><ion-icon name="camera"></ion-icon>&nbsp;Take a picture</ion-button>
-        <!-- <ion-button (click)="presentActionSheet()">Action</ion-button>
-        <div class="file-div">
-          <ion-button color="dark" expand="block" class="ion-text-capitalize"><ion-icon name="camera"></ion-icon>&nbsp;Take a picture</ion-button>
-        <input type="file" class="upload-image" accept="image/*" (change)="showPreviewImage($event)">
-        </div> -->
-        <!-- <img *ngIf="ImageURl" [src]="ImageURl" alt="" class="image"> -->
         <img *ngIf="base64Image" [src]="base64Image" alt="" class="image">
 
        <div *ngFor="let item of GetNotesVehicle?.pictures" class="picss-delete">

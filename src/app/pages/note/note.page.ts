@@ -26,7 +26,6 @@ export class NotePage implements OnInit {
     private network:NetworkService
   ) { 
     this.active.queryParams.subscribe((res:any)=>{
-      console.log(res.data);
       this.vehicleDetails=res.data;
       this.api.isupdateData.subscribe(_isLogin=>{
         this.getvehicleNotes(this.vehicleDetails.vehicle_id);
@@ -38,10 +37,8 @@ export class NotePage implements OnInit {
   ngOnInit() {
   }
   getvehicleNotes(id){
-    console.log(id)
     if(this.network.isConnctedNetwork){
       this.api.getNotes(id).subscribe((res:any)=>{
-        console.log(res);
         if(res){
           this.GetNotesVehicle=res;
           this.vehicleForOffline=res;
@@ -54,7 +51,6 @@ export class NotePage implements OnInit {
       })
     }else{
       this.storage.getObject('vehicleNotesOffline').then((res)=>{
-        console.log(res);
         if(res){
           let arrdata=res;
         let x =arrdata.filter((a)=>a.vehicle_id === id);

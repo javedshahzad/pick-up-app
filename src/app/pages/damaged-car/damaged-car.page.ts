@@ -17,7 +17,6 @@ export class DamagedCarPage implements OnInit {
     this.getdataFromDamagedcar.emit(data);
   }
   addclass(id,damageArea){
-    console.log(id,damageArea);
     for( let i = 0; i <=34;i++){
       document.getElementById('id'+i)?.classList?.remove('st21-press');
     }

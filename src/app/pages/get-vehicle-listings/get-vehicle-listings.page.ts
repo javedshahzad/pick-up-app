@@ -47,12 +47,10 @@ export class GetVehicleListingsPage implements OnInit {
     ) {}
 
     ngOnInit() {
-        console.log(navigator.onLine)
         this.api.setDriver();
         this.watchNetworks();
         this.userData = JSON.parse(localStorage.getItem("userData"));
         this.myDriverID = this.userData?.driver_id ? this.userData?.driver_id : "";
-        console.log(this.dayType);
         this.GetAndSetListings();
     }
     GetAndSetListings() {
@@ -64,7 +62,6 @@ export class GetVehicleListingsPage implements OnInit {
     }
     GetAllListingsData() {
         this.api.getListings(this.dayType).subscribe((res: any) => {
-            console.log(res);
             if (res) {
                 this.getAllListings = res;
                 this.searchArray = res;
@@ -82,7 +79,6 @@ export class GetVehicleListingsPage implements OnInit {
     }
     GetDataFromStorage(type) {
         this.storage.getObject(type).then((res: any) => {
-            console.log(res);
             this.getAllListings = res;
             this.searchArray = res;
         })
@@ -97,10 +93,6 @@ export class GetVehicleListingsPage implements OnInit {
 
         this.OfflineActions.push(data);
         this.storage.setObject('OfflineActions', this.OfflineActions).then((res) => {
-            //saved
-            this.storage.getObject('OfflineActions').then((res) => {
-                console.log(res);
-            });
         });
     };
     PickupBringbackActions(item, way, action) {
@@ -112,7 +104,6 @@ export class GetVehicleListingsPage implements OnInit {
             }];
             var strigifydata = JSON.stringify(data);
             this.api.pickupAndBringBack(strigifydata).subscribe((res: any) => {
-                console.log(res);
                 if (res) {
                     this.util.toast("Vehicle has been " + way);
                     this.GetAllListingsData();
@@ -145,9 +136,7 @@ export class GetVehicleListingsPage implements OnInit {
     }
 
     UpdatedArray(item, driverId, Trigram, type) {
-        //find the index of object from array that you want to update
         const objIndex = this.getAllListings.findIndex(obj => obj.vehicle_id === item.vehicle_id);
-        // When specific item is not found
         if (objIndex === -1) {
             return;
         }
@@ -160,6 +149,7 @@ export class GetVehicleListingsPage implements OnInit {
                 driver_trigram_pick_up: Trigram,
             };
         }
+        // adding bring back driver id AND trigram 
         if (type === "back") {
             var updatedObj = {
                 ...this.getAllListings[objIndex],
@@ -167,20 +157,15 @@ export class GetVehicleListingsPage implements OnInit {
                 driver_trigram_bring_back: Trigram
             };
         }
-        // make final new array of objects by combining updated object.
         const UpdatedListings = [
             ...this.getAllListings.slice(0, objIndex),
             updatedObj,
             ...this.getAllListings.slice(objIndex + 1),
         ];
-        console.log("updated data=", UpdatedListings);
         this.storeDataInStorage(this.dayType, UpdatedListings);
         setTimeout(() => {
             this.GetAndSetListings();
         }, 1000);
-        // this.storage.setObject('getAllListings', UpdatedListings).then((res) => {
-        //     this.GetAndSetListings();
-        // });
     }
     ckeckUp(item) {
 
@@ -208,7 +193,6 @@ export class GetVehicleListingsPage implements OnInit {
     Search(eve) {
         this.emptySearch = false;
         const str = eve.detail.value;
-        console.log(str);
         if (str) {
             let arrdata = this.searchArray;
             let x = arrdata.filter((a) => a.vehicle_registration.toUpperCase().includes(str.toUpperCase()));
@@ -224,9 +208,7 @@ export class GetVehicleListingsPage implements OnInit {
     watchNetworks() {
         // watch network for a connection
         this.WatchNetwork.onConnect().subscribe((net) => {
-            console.log(net, 'network connected!');
             setTimeout(() => {
-                console.log('We got a connection, woohoo!');
                 this.network.isConnctedNetwork = true;
                 this.UploadToServer();
             }, 1000);
@@ -234,15 +216,11 @@ export class GetVehicleListingsPage implements OnInit {
     }
     UploadToServer() {
         this.storage.getObject('OfflineActions').then((res) => {
-            console.log(res);
             this.offlineDataArray = res ? res : [];
             if (this.offlineDataArray.length > 0) {
                 var strigifydata = JSON.stringify(this.offlineDataArray);
-                console.log(strigifydata);
                 this.api.pickupAndBringBack(strigifydata).subscribe((res: any) => {
-                    console.log(res);
                     if (res) {
-                        console.log(res);
                         this.storage.remove('OfflineActions');
                         this.GetAndSetListings()
                     }

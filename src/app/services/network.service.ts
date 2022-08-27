@@ -21,23 +21,14 @@ export class NetworkService {
           setTimeout(() => {
           this.util.toast('Network disconnected');
           }, 1000);
-          console.log(res,'Network disconnected!');
           });
-          // watch network for a connection
           this.network.onConnect().subscribe((net) => {
-
-          console.log(net,'network connected!');
-          // We just got a connection but we need to wait briefly
-          // before we determine the connection type. Might need to wait.
-          // prior to doing any api requests as well.
           setTimeout(() => {
-          console.log('We got a connection, woohoo!');
           this.isConnctedNetwork=true;
           this.util.toast("Network connected");
           }, 1000);
           });
           this.network.onChange().subscribe((channge:any)=>{
-          console.log(channge)
           })
   }
 }
