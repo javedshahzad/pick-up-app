@@ -20,6 +20,7 @@ export class ApiService {
   public picturesUrlOld = "https://digital-lab.lu/pick-up/admin/user/pics/";
   public picturesUrl = "https://digital-lab.lu/pick-up/admin/app/user/pics/";
   public isupdateData = new BehaviorSubject(true);
+  public updatedListings = new BehaviorSubject(true);
   constructor(
       public http: HttpClient
   ) {

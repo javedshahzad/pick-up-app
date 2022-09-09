@@ -44,14 +44,19 @@ export class GetVehicleListingsPage implements OnInit {
         private network: NetworkService,
         private storage: StorageService,
         private WatchNetwork: Network,
-    ) {}
+    ) {
+  
+    }
 
     ngOnInit() {
-        this.api.setDriver();
-        this.watchNetworks();
-        this.userData = JSON.parse(localStorage.getItem("userData"));
-        this.myDriverID = this.userData?.driver_id ? this.userData?.driver_id : "";
-        this.GetAndSetListings();
+        this.api.updatedListings.subscribe(_isLogin=>{
+            this.api.setDriver();
+            this.watchNetworks();
+            this.userData = JSON.parse(localStorage.getItem("userData"));
+            this.myDriverID = this.userData?.driver_id ? this.userData?.driver_id : "";
+            this.GetAndSetListings();
+            })
+   
     }
     GetAndSetListings() {
         if (this.network.isConnctedNetwork) {
