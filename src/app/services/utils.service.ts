@@ -21,6 +21,9 @@ export class UtilsService {
   base64Image: any;
   userData: any;
   public baseUrl = environment.BaseUrl;
+    yesterday: boolean=true;
+    today: boolean=true;
+    tomorrow: boolean=true;
   constructor(
       private loadingCtrl: LoadingController,
       private toastr: ToastController,
@@ -122,5 +125,25 @@ export class UtilsService {
 
   goBack() {
       this.nav.back();
+  }
+  chnageTabs(number){
+    if(number === '1'){
+        this.yesterday=false;
+        setTimeout(() => {
+          this.yesterday=true;
+        }, 100);
+    }
+    if(number === '2'){
+        this.today=false;
+        setTimeout(() => {
+          this.today=true;
+        }, 100);
+    }
+    if(number === '3'){
+        this.tomorrow=false;
+        setTimeout(() => {
+          this.tomorrow=true;
+        }, 100);
+    }
   }
 }

@@ -1,4 +1,4 @@
 
- <ion-content>
+ <ion-content *ngIf="utils.yesterday">
   <app-get-vehicle-listings [dayType]="dayType"></app-get-vehicle-listings>
 </ion-content>

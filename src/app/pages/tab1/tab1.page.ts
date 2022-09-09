@@ -2,6 +2,8 @@ import {
   Component,
   OnInit
 } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-tab1',
@@ -11,11 +13,12 @@ import {
 export class Tab1Page implements OnInit {
   dayType:any="yesterday";
   constructor(
+    private utils : UtilsService
   ) {
      
   }
   ngOnInit(): void {
-
+  
   }
 
 }
